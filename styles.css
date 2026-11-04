@@ -44,6 +44,8 @@ a:hover{text-decoration:underline}
 .brand{display:flex;align-items:center;gap:12px;text-decoration:none}
 .brand:hover{text-decoration:none}
 .brand-star{width:36px;height:36px;fill:var(--gold);flex:none}
+.brand-icon{height:48px;width:auto;flex:none;border-radius:7px}
+.footer-lockup{max-width:440px;width:100%;height:auto;border-radius:10px;margin-bottom:12px}
 .brand-text{display:flex;flex-direction:column;line-height:1.2}
 .brand-name{font-family:"Fraunces",Georgia,serif;font-size:1.18rem;font-weight:700;color:var(--white)}
 .brand-sub{font-size:.7rem;letter-spacing:.18em;text-transform:uppercase;color:#c9d4e0}
