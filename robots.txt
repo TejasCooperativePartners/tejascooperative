@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://tradecallpro.github.io/tejascooperative/sitemap.xml
