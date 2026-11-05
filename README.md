@@ -14,21 +14,23 @@ Files:
 
 ## Hosting and deploy
 
-The site is plain static files: no framework, no build step. It is served by a Cloudflare Worker with static assets, worker name `tejascooperative`, assets directory the repo root (files listed in `.assetsignore` are not served).
+The site is plain static files: no framework, no build step. It is served by a Cloudflare Worker with static assets, worker name `tejascooperative`, in the Cloudflare account that owns the tejascooperative.com zone. `wrangler.jsonc` describes it (assets directory is the repo root; files in `.assetsignore` are not served).
 
-Deploy route: wrangler from this repo.
+Deploy route used for the first deploy (November 4, 2026): Cloudflare dashboard direct upload of the site files (Workers & Pages, Create, Upload your static files). To redeploy from this repo:
 
 ```
 npx wrangler deploy
 ```
 
-Custom domains (Cloudflare dashboard, Workers & Pages, tejascooperative, Settings, Domains & Routes):
+(Workers Builds, which auto-deploys on push, can be connected later under the Worker's Settings, Builds.)
 
-- `tejascooperative.com` is the primary domain, attached as a Worker custom domain.
-- `www.tejascooperative.com` redirects to the apex (a Redirect Rule: `https://tejascooperative.com/${1}`, 301).
-- HTTPS is on, with Always Use HTTPS enabled for the zone.
+Domains and HTTPS:
 
-Status (November 4, 2026): the repository side is ready on the `cloudflare-move` branch (Worker config, extracted logo files, canonical, Open Graph, sitemap and robots URLs set to https://tejascooperative.com). The deploy and domain attachment are pending a Cloudflare account connection that can see the tejascooperative.com zone.
+- `tejascooperative.com` is the primary domain, attached as a Worker custom domain (proxied).
+- `www.tejascooperative.com` is a proxied DNS record (A 192.0.2.1, a placeholder: traffic never reaches it) with a Redirect Rule that sends `https://www.*` to `https://${1}` with a 301 and keeps the query string. It lands on the apex.
+- Always Use HTTPS is on for the zone, so `http://` requests get a 301 to `https://`.
+
+Status: live as of November 4, 2026. Checks run: apex over HTTPS returns 200 with the header icon and footer lockup files, www returns 301 to the apex, HTTP returns 301 to HTTPS, and no page element references github.io.
 
 ## Retired: GitHub Pages
 
