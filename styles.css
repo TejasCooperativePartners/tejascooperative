@@ -109,6 +109,30 @@ a:hover{text-decoration:underline}
 .hero-points li{padding-left:24px;position:relative;margin-bottom:.35rem}
 .hero-points li::before{content:"";position:absolute;left:2px;top:.52em;width:9px;height:9px;background:var(--gold);transform:rotate(45deg)}
 
+/* Cooperatives band */
+.coop-band{background:var(--navy);color:#dbe4ee}
+.coop-band h2{color:var(--white)}
+.coop-band .section-lead{color:#c3d2e2}
+.coop-band .card{background:rgba(255,255,255,.06);border-color:rgba(255,255,255,.18);box-shadow:none}
+.coop-band .card h3{color:var(--white)}
+.coop-band .card p{color:#c3d2e2}
+.coop-card .coop-meta{
+  font-size:.76rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;
+  color:var(--gold);margin-bottom:.5rem;
+}
+.coop-note{margin-top:22px;max-width:900px;font-size:.99rem;color:#dbe4ee}
+
+/* Cards */
+.card-grid{display:grid;gap:20px}
+.card-grid.three{grid-template-columns:repeat(3,1fr)}
+.card-grid.two{grid-template-columns:repeat(2,1fr)}
+.card{
+  background:var(--white);border:1px solid var(--line);border-radius:var(--radius);
+  padding:24px 24px 20px;box-shadow:0 2px 8px rgba(14,42,71,.05);
+}
+.section-alt .card{background:var(--paper)}
+.card p{color:#3c4f63;font-size:.99rem}
+.card-feature{border-top:5px solid var(--rust)}
 .card-tag{
   display:inline-block;font-size:.7rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;
   color:var(--rust);margin-bottom:.5rem;
