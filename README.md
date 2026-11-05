@@ -5,20 +5,44 @@ Public facing website for Tejas Cooperative Partners, a Texas cooperative contra
 Status: draft for partner review ahead of public launch. Contact details and the client intake form publish at launch. Backend platform functionality (client portal, solicitation calendar, document workflows) is a separate build that follows this public site.
 
 Files:
-- index.html: the single page site
-- styles.css: styling
-- script.js: mobile navigation and footer year
+- index.html: the home page. Its header and footer sit between `<!--CHROME:...-->` markers and are generated from `src/chrome.js`
+- styles.css, script.js: site styling; navigation menus and footer year
 - favicon.svg: lone star mark
-- assets/: logo images (header icon, footer lockup)
-- wrangler.jsonc and .assetsignore: Cloudflare Worker static-assets configuration
+- assets/: logo images (header icon, footer lockup) and `hero-bg.svg`, the hero background image (replace with a photo by pointing `.hero` and `.page-hero` in styles.css at a new file)
+- src/worker.js: the Worker. Serves the blog, the blog admin, and `/sitemap.xml`; everything else is static
+- src/chrome.js: single source for the header and footer (also injected into blog pages). After editing, run `npm run sync-chrome`
+- src/config.js: public site constants (origin, Supabase URL and publishable key)
+- src/templates/: admin login and editor pages. css/blog-admin.css and js/blog-admin.js style and drive the editor
+- wrangler.jsonc and .assetsignore: Cloudflare Worker configuration (`src/`, `scripts/`, and root config files are not served as assets)
+
+## Navigation and portal login
+
+The header menu groups the page sections (Services, Cooperatives, Platform, Results, About) and links to the Blog. Two buttons sit at the right: **Portal Login** (https://portal.tejascooperative.com) and **Start a Conversation**. Edit them in `src/chrome.js`, then `npm run sync-chrome`.
+
+## Blog
+
+Posts live in the `blog_posts` table of the TejasCooperative Supabase project (migration `20261110000001_public_blog.sql` in the tejascooperative-main repo). The Worker renders `/blog` and `/blog/<slug>` on the server with the publishable key (published rows only, enforced by row-level security), so search engines see full HTML. The sitemap is generated from the same table.
+
+Writing posts: go to `/blog/admin`, sign in with the admin password, and use the editor (title, slug, excerpt, featured image upload, rich text with an HTML toggle, tags, status). Set Status to Published to make a post public. Post HTML is trusted: only the site operator can write it.
+
+Worker secrets (set once; never committed):
+
+```
+npx wrangler secret put ADMIN_PASSWORD
+npx wrangler secret put SESSION_SECRET        # any long random string
+npx wrangler secret put SUPABASE_SECRET_KEY   # the TejasCooperative project's secret key
+```
+
+Local development: `npm install`, create `.dev.vars` (gitignored) with the same three names, then `npm run dev`.
 
 ## Hosting and deploy
 
 The site is plain static files: no framework, no build step. It is served by a Cloudflare Worker with static assets, worker name `tejascooperative`, in the Cloudflare account that owns the tejascooperative.com zone. `wrangler.jsonc` describes it (assets directory is the repo root; files in `.assetsignore` are not served).
 
-Deploy route used for the first deploy (November 4, 2026): Cloudflare dashboard direct upload of the site files (Workers & Pages, Create, Upload your static files). To redeploy from this repo:
+Deploy route used for the first deploy (November 4, 2026): Cloudflare dashboard direct upload of the site files. Since the blog added a Worker script (`src/worker.js`), deploy from this repo:
 
 ```
+npm install
 npx wrangler deploy
 ```
 

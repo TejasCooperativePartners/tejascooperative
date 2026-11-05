@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Blog Admin | Tejas Cooperative Partners</title>
+<meta name="robots" content="noindex, nofollow">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="/css/blog-admin.css">
+</head>
+<body class="admin-body">
+
+<div class="admin-shell">
+  <header class="admin-header">
+    <div class="admin-header-brand">
+      <img src="/assets/tejas-icon.jpg" alt="" class="admin-header-logo">
+      <span>Tejas Blog Admin</span>
+    </div>
+    <button type="button" class="btn btn-secondary" id="logout-btn">Log Out</button>
+  </header>
+
+  <main class="admin-main">
+
+    <!-- ── List view ── -->
+    <section id="list-view">
+      <div class="admin-toolbar">
+        <h1>Posts</h1>
+        <button type="button" class="btn btn-primary" id="new-post-btn">New Post</button>
+      </div>
+      <p class="admin-error" id="list-error" role="alert"></p>
+      <div class="admin-table-wrap">
+        <table class="admin-table">
+          <thead>
+            <tr>
+              <th>Title</th>
+              <th>Status</th>
+              <th>Date</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody id="posts-table-body">
+            <tr><td colspan="4" class="admin-table-loading">Loading posts…</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- ── Editor view ── -->
+    <section id="editor-view" style="display:none;">
+      <div class="admin-toolbar">
+        <h1 id="editor-heading">New Post</h1>
+        <a href="#" id="view-live-link" target="_blank" rel="noopener" style="display:none;">View live &rarr;</a>
+      </div>
+      <p class="admin-error" id="editor-error" role="alert"></p>
+
+      <form id="editor-form" novalidate>
+        <input type="hidden" id="field-id">
+
+        <div class="form-row">
+          <div class="field">
+            <label for="field-title">Title</label>
+            <input type="text" id="field-title" required>
+          </div>
+          <div class="field">
+            <label for="field-slug">Slug</label>
+            <input type="text" id="field-slug" required>
+          </div>
+        </div>
+
+        <div class="field">
+          <label for="field-excerpt">Excerpt</label>
+          <textarea id="field-excerpt" rows="2"></textarea>
+        </div>
+
+        <div class="field">
+          <label for="field-image-url">Featured Image URL</label>
+          <div class="admin-image-row">
+            <input type="text" id="field-image-url" placeholder="https://...">
+            <input type="file" id="upload-input" accept="image/*" hidden>
+            <button type="button" class="btn btn-secondary" id="upload-btn">Upload</button>
+          </div>
+          <img id="image-preview" class="admin-image-preview" alt="" style="display:none;">
+        </div>
+
+        <div class="field">
+          <label>Content</label>
+          <div class="wysiwyg-toolbar" id="wysiwyg-toolbar">
+            <button type="button" data-cmd="bold" title="Bold"><b>B</b></button>
+            <button type="button" data-cmd="italic" title="Italic"><i>I</i></button>
+            <button type="button" data-cmd="formatBlock" data-value="H2" title="Heading">H2</button>
+            <button type="button" data-cmd="formatBlock" data-value="H3" title="Subheading">H3</button>
+            <button type="button" data-cmd="formatBlock" data-value="P" title="Paragraph">¶</button>
+            <button type="button" data-cmd="insertUnorderedList" title="Bulleted list">&bull; List</button>
+            <button type="button" data-cmd="insertOrderedList" title="Numbered list">1. List</button>
+            <button type="button" data-cmd="createLink" title="Link">Link</button>
+            <button type="button" data-cmd="unlink" title="Remove link">Unlink</button>
+            <button type="button" id="toggle-html-btn" title="Toggle raw HTML">&lt;/&gt;</button>
+          </div>
+          <div id="field-content" class="wysiwyg-content article-body" contenteditable="true"></div>
+          <textarea id="field-content-html" class="wysiwyg-content-html" style="display:none;" spellcheck="false"></textarea>
+        </div>
+
+        <div class="field">
+          <label for="field-tags">Tags <span class="admin-field-hint">(comma-separated)</span></label>
+          <input type="text" id="field-tags" placeholder="Fractional CIO, IT Governance">
+        </div>
+
+        <div class="form-row">
+          <div class="field">
+            <label for="field-meta-title">Meta Title <span class="admin-field-hint">(optional)</span></label>
+            <input type="text" id="field-meta-title">
+          </div>
+          <div class="field">
+            <label for="field-status">Status</label>
+            <select id="field-status">
+              <option value="draft">Draft</option>
+              <option value="published">Published</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="field">
+          <label for="field-meta-description">Meta Description <span class="admin-field-hint">(optional)</span></label>
+          <textarea id="field-meta-description" rows="2"></textarea>
+        </div>
+
+        <div class="admin-editor-actions">
+          <button type="submit" class="btn btn-primary" id="save-btn">Save</button>
+          <button type="button" class="btn btn-secondary" id="cancel-btn">Cancel</button>
+          <button type="button" class="btn btn-danger" id="delete-btn" style="display:none;">Delete</button>
+        </div>
+      </form>
+    </section>
+
+  </main>
+</div>
+
+<script src="/js/blog-admin.js"></script>
+</body>
+</html>

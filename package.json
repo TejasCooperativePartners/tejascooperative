@@ -1,0 +1,10 @@
+{
+  "name": "tejascooperative-website",
+  "private": true,
+  "scripts": {
+    "sync-chrome": "node scripts/sync-chrome.mjs",
+    "dev": "wrangler dev",
+    "deploy": "wrangler deploy"
+  },
+  "devDependencies": { "wrangler": "^4" }
+}
