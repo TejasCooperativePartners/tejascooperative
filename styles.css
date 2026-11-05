@@ -208,6 +208,9 @@ a:hover{text-decoration:underline}
 .contact-section .eyebrow{color:var(--gold)}
 .contact-section .section-lead{color:#cfdce9}
 .contact-inner{max-width:820px}
+.contact-action{margin-top:1.4rem}
+.contact-action .btn{border:0;cursor:pointer;font-family:inherit}
+.contact-fine{margin-top:.8rem;font-size:.92rem;color:#cfdce9}
 .contact-note{
   background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.22);border-radius:10px;
   padding:14px 18px;font-size:.97rem;color:#dbe4ee;max-width:720px;
@@ -344,4 +347,60 @@ section[id]{scroll-margin-top:84px}
   .brand-name{font-size:1rem}
   .brand-sub{display:none}
   .header-inner{gap:10px}
+}
+
+/* Fit review modal */
+.fr-lock{overflow:hidden}
+.fr-root[hidden]{display:none}
+.fr-root{position:fixed;inset:0;z-index:1000;display:flex;align-items:center;justify-content:center;padding:20px}
+.fr-backdrop{position:absolute;inset:0;background:rgba(10,31,54,.72)}
+.fr-dialog{position:relative;background:var(--paper);color:var(--ink);width:100%;max-width:720px;max-height:calc(100vh - 40px);
+  display:flex;flex-direction:column;border-radius:var(--radius);border-top:4px solid var(--gold);box-shadow:0 24px 60px rgba(0,0,0,.4);outline:none}
+.fr-head{display:flex;justify-content:space-between;gap:16px;padding:22px 26px 8px}
+.fr-head h2{font-size:1.6rem;margin:0}
+.fr-sub{color:var(--muted);font-size:.97rem;margin-top:4px}
+.fr-x{background:none;border:0;font-size:2rem;line-height:1;color:var(--navy);cursor:pointer;padding:0 6px;border-radius:8px;align-self:flex-start}
+.fr-x:hover{background:var(--sand)}
+.fr-form{display:flex;flex-direction:column;min-height:0;flex:1}
+.fr-progress{padding:0 26px;font-size:.85rem;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--rust)}
+.fr-body{padding:14px 26px;overflow-y:auto;flex:1}
+.fr-field{margin-bottom:16px;border:0}
+.fr-field label,.fr-field legend{display:block;font-weight:600;font-size:.95rem;color:var(--navy-deep);margin-bottom:5px}
+.fr-opt{font-weight:400;color:var(--muted)}
+.fr-field input[type=text],.fr-field input[type=email],.fr-field input[type=tel],.fr-field select,.fr-field textarea{
+  width:100%;font:inherit;font-size:1rem;padding:10px 12px;border:1.5px solid #c9bfa9;border-radius:9px;background:var(--white);color:var(--ink)}
+.fr-field input:focus,.fr-field select:focus,.fr-field textarea:focus,.fr-btn:focus-visible,.fr-x:focus-visible{outline:3px solid var(--gold);outline-offset:1px}
+.fr-help{font-size:.85rem;color:var(--muted);margin-top:4px}
+.fr-error{font-size:.88rem;color:#a12a14;font-weight:600;margin-top:4px}
+.fr-invalid input:not([type=radio]):not([type=checkbox]),.fr-invalid select,.fr-invalid textarea{border-color:#a12a14}
+.fr-seg{display:flex;flex-wrap:wrap;gap:8px}
+.fr-seg-opt input,.fr-chip input{position:absolute;opacity:0;pointer-events:none}
+.fr-seg-opt span,.fr-chip span{display:inline-block;padding:8px 14px;border:1.5px solid #c9bfa9;border-radius:999px;background:var(--white);cursor:pointer;font-size:.93rem;font-weight:500}
+.fr-seg-opt input:checked+span,.fr-chip input:checked+span{background:var(--navy);border-color:var(--navy);color:var(--white)}
+.fr-seg-opt input:focus-visible+span,.fr-chip input:focus-visible+span{outline:3px solid var(--gold);outline-offset:1px}
+.fr-chips{display:flex;flex-wrap:wrap;gap:8px}
+.fr-privacy{font-size:.9rem;color:var(--muted);margin:6px 0 12px}
+.fr-check{display:flex!important;gap:10px;align-items:flex-start;font-weight:500!important}
+.fr-check input{margin-top:5px;width:18px;height:18px;accent-color:var(--rust)}
+.fr-hp{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden}
+.fr-fail{border:1.5px solid #a12a14;background:#fdeee9;color:#7a1f0e;border-radius:9px;padding:12px 14px;font-weight:600}
+.fr-actions{display:flex;gap:10px;justify-content:flex-end;padding:14px 26px 22px;border-top:1px solid var(--line);background:var(--paper);border-radius:0 0 var(--radius) var(--radius)}
+.fr-btn{font:inherit;font-weight:600;padding:12px 22px;border-radius:10px;cursor:pointer;border:1.5px solid transparent}
+.fr-btn[hidden]{display:none}
+.fr-btn-primary{background:var(--rust);color:var(--white)}
+.fr-btn-primary:hover{background:var(--rust-dark)}
+.fr-btn-primary:disabled{opacity:.7;cursor:progress}
+.fr-btn-ghost{background:none;border-color:#93a9c0;color:var(--navy)}
+.fr-done{padding:18px 26px 8px}
+.fr-done h3{font-size:1.5rem;outline:none}
+.fr-done p{margin-top:10px}
+.fr-ref{font-size:1.05rem}
+.fr-ref strong{font-family:"Fraunces",Georgia,serif;letter-spacing:.06em;color:var(--navy-deep)}
+@media (max-width:640px){
+  .fr-root{padding:0}
+  .fr-dialog{max-width:none;height:100%;max-height:none;border-radius:0}
+  .fr-head,.fr-body,.fr-done{padding-left:18px;padding-right:18px}
+  .fr-progress{padding:0 18px}
+  .fr-actions{position:sticky;bottom:0;padding:12px 18px calc(12px + env(safe-area-inset-bottom));border-radius:0}
+  .fr-actions .fr-btn{flex:1}
 }

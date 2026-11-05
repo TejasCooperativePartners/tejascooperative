@@ -94,6 +94,7 @@ ${body}
 </main>
 ${FOOTER_HTML}
 <script src="/script.js"></script>
+<script src="/js/fit-review.js"></script>
 </body>
 </html>`;
 }
@@ -235,7 +236,7 @@ ${formatContent(post.content || "")}
   <div class="post-cta-box">
     <h2>Thinking about a cooperative contract?</h2>
     <p>Start with a fit review. We check your category, your current cooperative status, and the next opening on the calendar.</p>
-    <a class="btn btn-primary" href="/#contact">Start a Conversation</a>
+    <a class="btn btn-primary" href="/#fit-review" data-fit-review-open>Start a Conversation</a>
   </div>
 </div>
 </article>

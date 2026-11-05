@@ -19,6 +19,14 @@ Files:
 
 The header menu groups the page sections (Services, Cooperatives, Platform, Results, About) and links to the Blog. Two buttons sit at the right: **Portal Login** (https://portal.tejascooperative.com) and **Start a Conversation**. Edit them in `src/chrome.js`, then `npm run sync-chrome`.
 
+## Fit review form (Start a Conversation)
+
+Every "Start a Conversation" control carries `data-fit-review-open`. `js/fit-review.js` (loaded on the home page and on every blog page by the Worker) builds the modal and opens it on the current page. The `#fit-review` hash on any page opens it too, so `https://tejascooperative.com/#fit-review` works as a plain link. Closing it returns focus to the control that opened it.
+
+The form posts JSON to the platform: `https://portal.tejascooperative.com/api/public/fit-review-requests` (constant `ENDPOINT` at the top of `js/fit-review.js`). The site holds no database key. The platform allows only this site's origins. No account is created by a submission.
+
+Turnstile: not configured. To turn it on, load the Turnstile script and set `window.TEJAS_TURNSTILE_SITE_KEY` before `js/fit-review.js`, and set `TURNSTILE_SECRET_KEY` on the platform.
+
 ## Blog
 
 Posts live in the `blog_posts` table of the TejasCooperative Supabase project (migration `20261110000001_public_blog.sql` in the tejascooperative-main repo). The Worker renders `/blog` and `/blog/<slug>` on the server with the publishable key (published rows only, enforced by row-level security), so search engines see full HTML. The sitemap is generated from the same table.

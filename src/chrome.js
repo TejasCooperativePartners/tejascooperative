@@ -43,7 +43,7 @@ export const HEADER_HTML = `<header class="site-header">
       </ul>
       <div class="nav-actions">
         <a class="nav-login" href="${PORTAL_URL}" rel="noopener">Portal Login</a>
-        <a class="nav-cta" href="/#contact">Start a Conversation</a>
+        <a class="nav-cta" href="/#fit-review" data-fit-review-open>Start a Conversation</a>
       </div>
     </nav>
   </div>
