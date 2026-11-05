@@ -69,7 +69,7 @@ export const FOOTER_HTML = `<footer class="site-footer">
         <button type="button" data-open="cookie">Cookie Notice</button>
       </nav>
     </div>
-    <p class="footer-legal">Tejas Cooperative Partners is an independent consulting firm. It is not a cooperative purchasing organization, and it is not affiliated with BuyBoard, The Local Government Purchasing Cooperative, the Texas Association of School Boards, TIPS, The Interlocal Purchasing System, or any other cooperative. This site is in development and its content is subject to partner review.</p>
+    <p class="footer-legal">Tejas Cooperative Partners is an independent consulting firm. It is not a cooperative purchasing organization, and it is not affiliated with BuyBoard, The Local Government Purchasing Cooperative, the Texas Association of School Boards, TIPS, The Interlocal Purchasing System, or any other cooperative.</p>
     <p class="footer-copy">&copy; <span id="year">2026</span> Tejas Cooperative Partners. All rights reserved.</p>
   </div>
 </footer>`;
