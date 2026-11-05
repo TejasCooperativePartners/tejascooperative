@@ -95,6 +95,7 @@
           '<div class="fr-actions"><button type="button" class="fr-btn fr-btn-ghost" id="fr-back" hidden>Back</button>' +
             '<button type="button" class="fr-btn fr-btn-primary" id="fr-next">Continue</button>' +
             '<button type="submit" class="fr-btn fr-btn-primary" id="fr-submit" hidden>Request Fit Review</button></div>' +
+          '<p class="fr-submit-note" id="fr-submit-note" hidden>Submitting this form sends your information to Tejas Cooperative Partners. See our <a href="/privacy">Privacy Policy</a>.</p>' +
         '</form>' +
         '<div class="fr-done" id="fr-done" hidden>' +
           '<h3 tabindex="-1" id="fr-done-title">Request received</h3>' +
@@ -177,6 +178,7 @@
     root.querySelector("#fr-back").hidden = n === 1;
     root.querySelector("#fr-next").hidden = n === 2;
     root.querySelector("#fr-submit").hidden = n === 1;
+    root.querySelector("#fr-submit-note").hidden = n === 1;
     root.querySelector("#fr-fail").hidden = true;
     root.querySelector(".fr-body").scrollTop = 0;
     if (n === 2) loadTurnstile();

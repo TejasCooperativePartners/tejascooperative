@@ -388,6 +388,8 @@ section[id]{scroll-margin-top:84px}
 .fr-actions{display:flex;gap:10px;justify-content:flex-end;padding:14px 26px 22px;border-top:1px solid var(--line);background:var(--paper);border-radius:0 0 var(--radius) var(--radius)}
 .fr-btn{font:inherit;font-weight:600;padding:12px 22px;border-radius:10px;cursor:pointer;border:1.5px solid transparent}
 .fr-btn[hidden]{display:none}
+.fr-submit-note{margin:0;padding:0 26px 18px;background:var(--paper);font-size:.84rem;color:var(--muted);text-align:right;border-radius:0 0 var(--radius) var(--radius)}
+.fr-submit-note a{color:var(--rust);text-decoration:underline}
 .fr-btn-primary{background:var(--rust);color:var(--white)}
 .fr-btn-primary:hover{background:var(--rust-dark)}
 .fr-btn-primary:disabled{opacity:.7;cursor:progress}

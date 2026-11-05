@@ -76,39 +76,47 @@ const legal = (eyebrow, title, intro, sections) =>
 export const PRIVACY_PAGE = {
   path: "/privacy",
   title: "Privacy Policy",
-  description: "How Tejas Cooperative Partners collects, uses, and protects information through its website and client portal.",
-  body: legal(
-    "Legal",
-    "Privacy Policy",
-    `Tejas Cooperative Partners (the "Firm," "we," or "us") is an independent consulting firm that helps businesses prepare and submit proposals to cooperative purchasing organizations. This policy explains what information we collect through our website (tejascooperative.com) and our client portal (portal.tejascooperative.com), how we use it, and the choices you have.`,
-    [
-      ["Information we collect", `<p><strong>Contact and fit review forms.</strong> When you send a message through our Contact Us page, we collect your full name, company name, phone number, email address, and the details you write. When you submit a fit review request, we also collect what your company sells, where it sells, its cooperative purchasing status, and related answers you choose to give.</p>
-<p><strong>Accounts and portal use.</strong> When we invite a prospect or client to the portal, we collect the user's name, email address, and sign-in credentials, and we record activity such as sign-ins, terms acceptance, and signature consent.</p>
-<p><strong>Client business records.</strong> Clients provide business documents and data used to prepare cooperative proposals, which may include tax forms, insurance certificates, licenses, financial information, catalogs, pricing, and the names and contact details of authorized signers and references.</p>
-<p><strong>Email.</strong> Email sent or received through the portal is stored with the related record, including delivery, bounce, and complaint status.</p>
-<p><strong>Technical information.</strong> Our systems record standard technical information such as IP addresses, browser type, and access times in server and security logs. To limit abuse, we keep a one-way scrambled (hashed) form of your IP address with form submissions.</p>`],
-      ["How we use information", `<ul>
-<li>To respond to contact messages and fit review requests.</li>
-<li>To provide our consulting services: building client profiles, preparing and tracking proposals, managing vendor registrations as the client's authorized agent, tracking recommendation letters, and monitoring cooperative solicitations.</li>
-<li>To send email related to an inquiry or engagement, including notices, deadlines, and messages sent through the portal.</li>
-<li>To operate, secure, and improve our website and portal, and to prevent spam and abuse.</li>
+  description: "How Tejas Cooperative Partners collects, uses, and protects information through its website and client platform.",
+  // Text is the platform's templates/legal/privacy-policy.md, published verbatim (DRAFT banner line omitted).
+  body: `${hero("Legal", "Privacy Policy", `Effective ${UPDATED}`)}
+<section class="section">
+  <div class="wrap legal">
+    <p class="legal-intro">Tejas Cooperative Partners (the "Firm") is an independent consulting firm that helps businesses prepare and submit proposals to cooperative purchasing organizations. This policy describes what information the Firm collects through its website (tejascooperative.com) and its client platform (portal.tejascooperative.com), how it is used, and the choices a person or business has about it.</p>
+    <h2>Information the Firm collects</h2>
+    <p><strong>Fit review requests.</strong> When a visitor submits the fit review form on the website, the Firm collects the contact's name, company name, email address, phone number, what the company sells, where it sells, its current cooperative purchasing status, the cooperatives it is considering, any specific invitation or deadline it names, and the obstacle it describes. The submission is stored in the Firm's platform as an unvetted prospect record. Submitting the form does not create a user account.</p>
+    <p><strong>Accounts and platform use.</strong> When the Firm invites a prospect or client to the platform, the Firm collects the user's name, email address, and account credentials, and records account activity such as sign-ins, terms acceptance, and signature consent.</p>
+    <p><strong>Client business records.</strong> Clients provide business documents and data used to prepare cooperative proposals, which may include tax forms (including Form W-9), insurance certificates, licenses, financial information, catalogs, and pricing. Clients also provide the names and contact details of their authorized signers and references.</p>
+    <p><strong>Email correspondence.</strong> Email sent or received through the platform is stored with the related prospect or client record, including delivery, bounce, and complaint status returned by the email provider.</p>
+    <p><strong>Technical records.</strong> The platform records standard technical information, including IP addresses, browser type, and access times, in server and security logs.</p>
+    <h2>How the Firm uses information</h2>
+    <ul>
+<li>To evaluate fit review requests and respond to the person who submitted one.</li>
+<li>To provide the consulting services: building client profiles, preparing and tracking proposals, managing vendor registrations as the client's authorized agent, tracking recommendation letters, and monitoring cooperative solicitations.</li>
+<li>To send email related to an engagement, including notifications about submissions, cooperative notices, deadlines, and messages sent through the platform.</li>
+<li>To operate, secure, and improve the platform.</li>
 <li>To meet legal, tax, and cooperative program requirements.</li>
 </ul>
-<p>We use artificial intelligence tools in the portal to read and extract data from client documents, check letters against cooperative rules, and draft proposal content for partner review. Client data processed by these tools is not used to train AI models.</p>`],
-      ["Cookies and similar technologies", `<p>Our website does not use advertising, tracking, or analytics cookies. See our cookie notice (link in the page footer) for what may be stored on your device, such as your acknowledgement of that notice and, if you sign in, a strictly necessary session cookie. Our forms use Cloudflare Turnstile to tell people from automated programs, and our pages load fonts from Google Fonts; both providers receive technical information such as your IP address when they load.</p>`],
-      ["How we share information", `<p>We do not sell personal information, and we do not share one client's data with other clients. We share information only in these cases:</p>
-<ul>
-<li><strong>With cooperatives, as part of a submission.</strong> Proposal packets, registration records, and signed forms are submitted to the cooperative a client is pursuing, at the client's direction. A submitted packet becomes part of that cooperative's procurement record and may be subject to its own rules and to public information law.</li>
-<li><strong>With service providers that run our systems.</strong> We use established providers for hosting and database (Vercel and Supabase), email delivery (Amazon Web Services), website delivery, DNS, and bot protection (Cloudflare), AI document processing (Anthropic), and electronic signatures. Each processes information only to provide its service.</li>
-<li><strong>When required by law,</strong> or to protect the rights, property, or safety of the Firm, our clients, or others.</li>
-</ul>`],
-      ["Retention", `<p>Contact messages and fit review records for people who do not become clients are kept for a reasonable period for follow-up and then deleted or archived. Client records are kept while the engagement is active and afterward for the period needed for renewals, audits, and legal requirements. You may ask us to delete your prospect or contact record at any time.</p>`],
-      ["Security", `<p>We use access controls, per-account permissions, encrypted connections, and a credential vault for cooperative account credentials. No system is perfectly secure. If we learn of unauthorized access to a client's portal records, we will notify the affected client without undue delay.</p>`],
-      ["Your choices", `<p>You may ask what information we hold about you or your business, ask for a correction, or ask for deletion, by using our <a href="/contact">Contact Us</a> page or writing to <a href="mailto:${PRIVACY_EMAIL}">${PRIVACY_EMAIL}</a>. You can also block or delete cookies in your browser settings. Our services are intended for businesses and are not directed to children under 13.</p>`],
-      ["Changes to this policy", `<p>We may update this policy as our website and portal change. The current version is always posted at tejascooperative.com/privacy with its effective date.</p>`],
-      ["About the Firm", `<p>Tejas Cooperative Partners is an independent consulting firm. It is not a cooperative, it is not affiliated with BuyBoard, TASB, or TIPS, and it guarantees no award and no sales level.</p>`],
-    ],
-  ),
+    <p>The Firm uses AI tools inside the platform to read and extract data from client documents, check letters against cooperative rules, and draft proposal content for partner review. Client data processed by these tools is not used to train AI models.</p>
+    <h2>How information is shared</h2>
+    <p>The Firm does not sell personal information and does not share client data with other clients.</p>
+    <p>Information is shared only in these cases:</p>
+    <ul>
+<li><strong>With cooperatives, as part of a submission.</strong> Proposal packets, registration records, and signed forms are submitted to the cooperative the client is pursuing, at the client's direction. A submitted packet becomes part of that cooperative's procurement record and may be subject to the cooperative's own rules and to public information law.</li>
+<li><strong>With service providers that run the platform.</strong> The Firm uses established providers for hosting and database (Vercel and Supabase), email delivery (Amazon Web Services), DNS and website delivery (Cloudflare), AI document processing (Anthropic), and electronic signatures (provider named in the platform when signing is used). Each provider processes information only to provide its service.</li>
+<li><strong>When required by law,</strong> or to protect the rights, property, or safety of the Firm, its clients, or others.</li>
+</ul>
+    <h2>Retention</h2>
+    <p>Fit review records for prospects that do not become clients are kept for a reasonable period for follow-up and then deleted or archived. Client records are kept while the engagement is active and afterward for the period needed for renewals, audits, and legal requirements. A business may ask the Firm to delete its prospect record at any time, using the contact below.</p>
+    <h2>Security</h2>
+    <p>The platform uses access controls, per-account permissions, encrypted connections, and a credential vault for cooperative account credentials. No system is perfectly secure; the Firm will notify affected clients without undue delay if it becomes aware of unauthorized access to their platform records.</p>
+    <h2>Choices and contact</h2>
+    <p>A person may ask what information the Firm holds about them or their business, ask for a correction, or ask for deletion of a prospect record, by writing to cooperativetejas@gmail.com. The Firm responds to requests from the business contact of record.</p>
+    <h2>Changes to this policy</h2>
+    <p>The Firm may update this policy as the platform changes. The current version is posted at tejascooperative.com/privacy with its effective date.</p>
+    <h2>About the Firm</h2>
+    <p>Tejas Cooperative Partners is an independent consulting firm. It is not a cooperative, it is not affiliated with BuyBoard, TASB, or TIPS, and it guarantees no award and no sales level.</p>
+  </div>
+</section>`,
 };
 
 export const TERMS_PAGE = {
