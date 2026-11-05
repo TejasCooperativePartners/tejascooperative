@@ -145,6 +145,7 @@
 
   function validateStep(n) {
     var ok = true, f = form();
+    Array.prototype.forEach.call(root.querySelectorAll('[data-step="' + n + '"] [name]'), clearError);
     function bad(name, msg) { setError(name, msg); ok = false; }
     if (n === 1) {
       if (!val("contact_name")) bad("contact_name", "Enter your name.");
@@ -286,8 +287,10 @@
     inerted.forEach(function (n) { n.removeAttribute("inert"); });
     inerted = [];
     if (location.hash === "#fit-review") history.replaceState(null, "", location.pathname + location.search);
-    if (opener && document.contains(opener) && opener.focus) opener.focus();
-    else { var c = document.querySelector("[data-fit-review-open]"); if (c) c.focus(); }
+    var back = [opener, document.getElementById("navToggle"), document.querySelector("[data-fit-review-open]")];
+    for (var i = 0; i < back.length; i++) {
+      if (back[i] && document.contains(back[i]) && back[i].focus) { back[i].focus(); if (document.activeElement === back[i]) break; }
+    }
   }
 
   document.addEventListener("click", function (e) {
