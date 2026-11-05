@@ -25,7 +25,7 @@ Every "Start a Conversation" control carries `data-fit-review-open`. `js/fit-rev
 
 The form posts JSON to the platform: `https://portal.tejascooperative.com/api/public/fit-review-requests` (constant `ENDPOINT` at the top of `js/fit-review.js`). The site holds no database key. The platform allows only this site's origins. No account is created by a submission.
 
-Turnstile: not configured. To turn it on, load the Turnstile script and set `window.TEJAS_TURNSTILE_SITE_KEY` before `js/fit-review.js`, and set `TURNSTILE_SECRET_KEY` on the platform.
+Turnstile: on. The widget (site key in `js/fit-review.js`, lazy-loaded when the modal opens) sends `turnstile_token`; the platform verifies it with `TURNSTILE_SECRET_KEY`. Widget "Tejas Cooperative fit review" lives in the Cloudflare Turnstile dashboard for tejascooperative.com, www, and localhost.
 
 ## Blog
 

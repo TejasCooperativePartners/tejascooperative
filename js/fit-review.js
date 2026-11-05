@@ -3,7 +3,8 @@
 (function () {
   "use strict";
   var ENDPOINT = "https://portal.tejascooperative.com/api/public/fit-review-requests";
-  var TURNSTILE_SITE_KEY = window.TEJAS_TURNSTILE_SITE_KEY || "";
+  var TURNSTILE_SITE_KEY = window.TEJAS_TURNSTILE_SITE_KEY || "0x4AAAAAAF1HYbeNeZyQhFrn";
+  var tsWidget = null;
 
   var STATUSES = [
     ["currently_holds", "Currently hold a cooperative contract"],
@@ -211,6 +212,8 @@
       .then(function (res) { return res.json().catch(function () { return {}; }).then(function (b) { return { status: res.status, body: b }; }); })
       .then(function (r) {
         if ((r.status === 201 || r.status === 409) && r.body && r.body.reference_code) { success(r.body.reference_code); return; }
+        resetTurnstile();
+        if (r.status === 400 && r.body && r.body.errors && r.body.errors.form) { failure(); return; }
         if (r.status === 400 && r.body && r.body.errors) {
           var firstStep = 2;
           Object.keys(r.body.errors).forEach(function (k) {
@@ -222,7 +225,7 @@
         }
         failure();
       })
-      .catch(failure)
+      .catch(function () { resetTurnstile(); failure(); })
       .then(function () { submitting = false; btn.disabled = false; btn.textContent = root.querySelector("#fr-fail").hidden ? "Request Fit Review" : "Try Again"; });
   }
   function failure() {
@@ -276,9 +279,30 @@
     });
     window.scrollTo(0, scrollY);
     if (!sent) showStep(step); else dialog.focus();
-    if (TURNSTILE_SITE_KEY && window.turnstile && !root.querySelector("#fr-turnstile").hasChildNodes()) {
-      window.turnstile.render("#fr-turnstile", { sitekey: TURNSTILE_SITE_KEY, callback: function (t) { turnstileToken = t; } });
+    loadTurnstile();
+  }
+  function loadTurnstile() {
+    if (!TURNSTILE_SITE_KEY) return;
+    function draw() {
+      if (tsWidget !== null || !window.turnstile) return;
+      tsWidget = window.turnstile.render("#fr-turnstile", {
+        sitekey: TURNSTILE_SITE_KEY, action: "fit-review",
+        callback: function (t) { turnstileToken = t; },
+        "expired-callback": function () { turnstileToken = ""; },
+        "error-callback": function () { turnstileToken = ""; }
+      });
     }
+    if (window.turnstile) { draw(); return; }
+    if (document.getElementById("fr-turnstile-api")) return;
+    var sc = document.createElement("script");
+    sc.id = "fr-turnstile-api"; sc.async = true; sc.defer = true;
+    sc.src = "https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit";
+    sc.onload = draw;
+    document.head.appendChild(sc);
+  }
+  function resetTurnstile() {
+    turnstileToken = "";
+    if (window.turnstile && tsWidget !== null) { try { window.turnstile.reset(tsWidget); } catch (e) { /* widget gone */ } }
   }
   function close() {
     if (!root || root.hidden) return;
