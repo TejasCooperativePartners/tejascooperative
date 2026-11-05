@@ -1,0 +1,9 @@
+# Files at the repo root that must not be served as site assets.
+.git
+.gitignore
+.assetsignore
+wrangler.jsonc
+README.md
+node_modules
+package.json
+package-lock.json
