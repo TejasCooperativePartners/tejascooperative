@@ -31,11 +31,11 @@ export const HEADER_HTML = `<header class="site-header">
           </ul>
         </li>
         <li><a class="nav-link" href="/#platform">Platform</a></li>
-        <li><a class="nav-link" href="/#proof">Results</a></li>
+        <li><a class="nav-link" href="/#benefits">Results</a></li>
         <li class="has-menu">
           <button class="nav-link menu-btn" type="button" aria-expanded="false">About</button>
           <ul class="submenu">
-            <li><a href="/#about">The Partners</a></li>
+            <li><a href="/#about">The Firm</a></li>
             <li><a href="/#faq">Questions</a></li>
           </ul>
         </li>
@@ -58,7 +58,7 @@ export const FOOTER_HTML = `<footer class="site-footer">
         <a href="/#services">Services</a>
         <a href="/#pricing">Pricing</a>
         <a href="/#platform">Platform</a>
-        <a href="/#proof">Results</a>
+        <a href="/#benefits">Results</a>
         <a href="/#about">About</a>
         <a href="/blog">Blog</a>
         <a href="/contact">Contact</a>
