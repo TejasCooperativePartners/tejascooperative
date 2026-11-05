@@ -12,6 +12,7 @@ import {
   SITE_ORIGIN, SITE_NAME, SUPABASE_URL, SUPABASE_PUBLISHABLE_KEY, DEFAULT_OG_IMAGE,
 } from "./config.js";
 import { HEADER_HTML, FOOTER_HTML } from "./chrome.js";
+import { CONTACT_PAGE, PRIVACY_PAGE, TERMS_PAGE } from "./pages.js";
 import adminHtml from "./templates/blog-admin.html";
 import adminLoginHtml from "./templates/blog-admin-login.html";
 
@@ -20,7 +21,12 @@ const POST_FIELDS = [
   "slug", "title", "content", "excerpt", "featured_image_url",
   "meta_title", "meta_description", "status", "tags", "published_at",
 ];
-const STATIC_PAGES = [{ loc: "/", changefreq: "monthly", priority: "1.0" }];
+const STATIC_PAGES = [
+  { loc: "/", changefreq: "monthly", priority: "1.0" },
+  { loc: "/contact", changefreq: "yearly", priority: "0.6" },
+  { loc: "/privacy", changefreq: "yearly", priority: "0.3" },
+  { loc: "/terms", changefreq: "yearly", priority: "0.3" },
+];
 const BLOG_DESCRIPTION =
   "Practical guidance on cooperative purchasing contracts for Texas vendors: BuyBoard, TIPS, and other cooperatives, proposal strategy, and renewals.";
 
@@ -32,6 +38,8 @@ export default {
     if (path === "/blog/admin" || path.startsWith("/blog/admin/")) return handleAdmin(request, env, url);
     if (path === "/sitemap.xml") return renderSitemap();
     if (path === "/blog" || path === "/blog/") return renderBlogIndex();
+    const info = INFO_PAGES[path.replace(/\/$/, "")];
+    if (info) return renderInfoPage(info);
     if (path.startsWith("/blog/")) {
       const slug = decodeURIComponent(path.slice("/blog/".length).replace(/\/$/, ""));
       return renderBlogPost(slug);
@@ -39,6 +47,24 @@ export default {
     return env.ASSETS.fetch(request);
   },
 };
+
+const INFO_PAGES = {
+  "/contact": { ...CONTACT_PAGE, scripts: '<script src="/js/contact.js" defer></script>' },
+  "/privacy": PRIVACY_PAGE,
+  "/terms": TERMS_PAGE,
+};
+
+function renderInfoPage(p) {
+  return htmlResponse(
+    page({
+      title: `${p.title} | ${SITE_NAME}`,
+      description: p.description,
+      canonical: `${SITE_ORIGIN}${p.path}`,
+      body: p.body,
+      scripts: p.scripts || "",
+    }),
+  );
+}
 
 /* ───────── helpers ───────── */
 
@@ -59,7 +85,7 @@ const htmlResponse = (html, status = 200) =>
 const json = (data, status = 200, headers = {}) =>
   new Response(JSON.stringify(data), { status, headers: { "Content-Type": "application/json", ...headers } });
 
-function page({ title, description, canonical, ogType = "website", ogImage = DEFAULT_OG_IMAGE, jsonLd, body, robots }) {
+function page({ title, description, canonical, ogType = "website", ogImage = DEFAULT_OG_IMAGE, jsonLd, body, robots, scripts = "" }) {
   return `<!DOCTYPE html>
 <html lang="en">
 <head>
@@ -96,6 +122,7 @@ ${FOOTER_HTML}
 <script src="/script.js"></script>
 <script src="/js/fit-review.js"></script>
 <script src="/js/notices.js" defer></script>
+${scripts}
 </body>
 </html>`;
 }

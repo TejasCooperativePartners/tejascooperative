@@ -20,7 +20,7 @@
     "<h3>Known limitations</h3>" +
     "<p>Images and formatting in blog posts are added by our team and may occasionally miss an alternative description. Third-party content we link to, including cooperative websites, is outside our control.</p>" +
     '<h3>Tell us about a problem</h3>' +
-    '<p>If something on this site is hard to use, tell us and we will work to fix it or give you the information another way. Reach Tony or Chris directly, or use the <a href="/#contact">contact section</a>. Please say which page you were on and what kind of assistive technology you use.</p>' +
+    '<p>If something on this site is hard to use, tell us and we will work to fix it or give you the information another way. Reach Tony or Chris directly, or use the <a href="/contact">Contact Us page</a>. Please say which page you were on and what kind of assistive technology you use.</p>' +
     '<p class="notice-meta">Last updated ' + UPDATED + ".</p>";
 
   var COOKIE_HTML =
@@ -33,6 +33,7 @@
     "</ul>" +
     "<h3>Third-party fonts</h3>" +
     "<p>Our pages load fonts from Google Fonts. When a page loads, Google receives your IP address and browser details in order to deliver the fonts. We do not control what Google does with that information; see Google's privacy policy for details.</p>" +
+    "<p>Our forms use Cloudflare Turnstile to tell people from automated programs. See our <a href=\"/privacy\">Privacy Policy</a> for how information is used.</p>" +
     "<h3>Your choices</h3>" +
     "<p>You can delete or block cookies in your browser settings. Blocking sign-in cookies will prevent you from signing in.</p>" +
     '<p class="notice-meta">Last updated ' + UPDATED + ".</p>";

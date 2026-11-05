@@ -40,6 +40,7 @@ export const HEADER_HTML = `<header class="site-header">
           </ul>
         </li>
         <li><a class="nav-link" href="/blog">Blog</a></li>
+        <li><a class="nav-link" href="/contact">Contact</a></li>
       </ul>
       <div class="nav-actions">
         <a class="nav-login" href="${PORTAL_URL}" rel="noopener">Portal Login</a>
@@ -60,7 +61,10 @@ export const FOOTER_HTML = `<footer class="site-footer">
         <a href="/#proof">Results</a>
         <a href="/#about">About</a>
         <a href="/blog">Blog</a>
+        <a href="/contact">Contact</a>
         <a href="${PORTAL_URL}" rel="noopener">Portal Login</a>
+        <a href="/privacy">Privacy Policy</a>
+        <a href="/terms">Terms of Service</a>
         <button type="button" data-open="a11y">Accessibility</button>
         <button type="button" data-open="cookie">Cookie Notice</button>
       </nav>
