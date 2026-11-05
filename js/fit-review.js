@@ -58,7 +58,8 @@
       '<div class="fr-backdrop" data-fr-close></div>' +
       '<div class="fr-dialog" role="dialog" aria-modal="true" aria-labelledby="fr-title" aria-describedby="fr-sub" tabindex="-1">' +
         '<div class="fr-head"><div><h2 id="fr-title">Start a Conversation</h2>' +
-          '<p id="fr-sub" class="fr-sub">Request a free fit review. Two short steps, about two minutes.</p></div>' +
+          '<p id="fr-sub" class="fr-sub">Request a free fit review. Two short steps, about two minutes.</p>' +
+          '<p class="fr-sub">Every pursuit runs on our platform, with AI-assisted checks on your documents and a partner\'s sign-off before submission.</p></div>' +
           '<button type="button" class="fr-x" data-fr-close aria-label="Close">&times;</button></div>' +
         '<form class="fr-form" novalidate>' +
           '<p class="fr-progress" id="fr-progress" aria-live="polite">Step 1 of 2</p>' +
