@@ -88,8 +88,9 @@ a:hover{text-decoration:underline}
 /* Hero */
 .hero{
   background:
-    linear-gradient(100deg,rgba(10,31,54,.86) 0%,rgba(10,31,54,.55) 50%,rgba(10,31,54,.10) 100%),
-    url("/assets/hero-bg.svg") center/cover no-repeat,
+    linear-gradient(100deg,rgba(10,31,54,.90) 0%,rgba(10,31,54,.68) 42%,rgba(10,31,54,.30) 75%,rgba(10,31,54,.18) 100%),
+    linear-gradient(180deg,rgba(10,31,54,.35) 0%,rgba(10,31,54,0) 30%,rgba(10,31,54,.45) 100%),
+    url("/assets/hero.webp") center right/cover no-repeat,
     var(--navy-deep);
   color:#e8eef5;padding:96px 0 104px;
 }
@@ -268,8 +269,8 @@ a:hover{text-decoration:underline}
 /* Blog */
 .page-hero{
   background:
-    linear-gradient(100deg,rgba(10,31,54,.94),rgba(10,31,54,.78)),
-    url("/assets/hero-bg.svg") center/cover no-repeat,var(--navy-deep);
+    linear-gradient(100deg,rgba(10,31,54,.94),rgba(10,31,54,.80)),
+    url("/assets/hero.webp") center/cover no-repeat,var(--navy-deep);
   color:#e8eef5;padding:70px 0 60px;
 }
 .page-hero .eyebrow{color:var(--gold)}
