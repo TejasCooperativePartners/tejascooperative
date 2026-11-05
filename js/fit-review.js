@@ -179,6 +179,7 @@
     root.querySelector("#fr-submit").hidden = n === 1;
     root.querySelector("#fr-fail").hidden = true;
     root.querySelector(".fr-body").scrollTop = 0;
+    if (n === 2) loadTurnstile();
     var first = root.querySelector('[data-step="' + n + '"] input:not([type=radio]), [data-step="' + n + '"] textarea');
     if (first) first.focus();
   }
@@ -284,7 +285,7 @@
   function loadTurnstile() {
     if (!TURNSTILE_SITE_KEY) return;
     function draw() {
-      if (tsWidget !== null || !window.turnstile) return;
+      if (tsWidget !== null || !window.turnstile || step !== 2) return;
       tsWidget = window.turnstile.render("#fr-turnstile", {
         sitekey: TURNSTILE_SITE_KEY, action: "fit-review",
         callback: function (t) { turnstileToken = t; },
