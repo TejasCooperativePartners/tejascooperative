@@ -67,3 +67,8 @@ Status: live as of November 4, 2026. Checks run: apex over HTTPS returns 200 wit
 ## Retired: GitHub Pages
 
 The `gh-pages` branch served the old GitHub Pages address and is retired by this move. Its history is intentionally left in place and is not deleted. No page element should reference github.io.
+
+
+## Accessibility statement and cookie notice
+
+`js/notices.js` (loaded on every public page) adds the floating accessibility icon with its statement dialog, the cookie notice banner, and a full cookie notice dialog. Footer links "Accessibility" and "Cookie Notice" reopen them. Wording lives at the top of that file; update it when the site's data practices change (for example if analytics are added, the cookie notice must change and consent should be requested).

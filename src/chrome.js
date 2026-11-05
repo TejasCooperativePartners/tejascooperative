@@ -61,6 +61,8 @@ export const FOOTER_HTML = `<footer class="site-footer">
         <a href="/#about">About</a>
         <a href="/blog">Blog</a>
         <a href="${PORTAL_URL}" rel="noopener">Portal Login</a>
+        <button type="button" data-open="a11y">Accessibility</button>
+        <button type="button" data-open="cookie">Cookie Notice</button>
       </nav>
     </div>
     <p class="footer-legal">Tejas Cooperative Partners is an independent consulting firm. It is not a cooperative purchasing organization, and it is not affiliated with BuyBoard, The Local Government Purchasing Cooperative, the Texas Association of School Boards, TIPS, The Interlocal Purchasing System, or any other cooperative. This site is in development and its content is subject to partner review.</p>

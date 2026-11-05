@@ -95,6 +95,7 @@ ${body}
 ${FOOTER_HTML}
 <script src="/script.js"></script>
 <script src="/js/fit-review.js"></script>
+<script src="/js/notices.js" defer></script>
 </body>
 </html>`;
 }
