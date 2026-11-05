@@ -6,11 +6,7 @@ export const PORTAL_URL = "https://portal.tejascooperative.com";
 export const HEADER_HTML = `<header class="site-header">
   <div class="wrap header-inner">
     <a class="brand" href="/" aria-label="Tejas Cooperative Partners, home">
-      <img class="brand-icon" src="/assets/tejas-icon.jpg" alt="" aria-hidden="true">
-      <span class="brand-text">
-        <span class="brand-name">Tejas Cooperative Partners</span>
-        <span class="brand-sub">Cooperative Contract Consulting</span>
-      </span>
+      <img class="brand-logo" src="/assets/logo-header.svg" alt="Tejas Cooperative Partners" width="221" height="45">
     </a>
     <button class="nav-toggle" id="navToggle" aria-label="Open menu" aria-expanded="false" aria-controls="siteNav">
       <span></span><span></span><span></span>
@@ -56,13 +52,7 @@ export const HEADER_HTML = `<header class="site-header">
 export const FOOTER_HTML = `<footer class="site-footer">
   <div class="wrap footer-inner">
     <div class="footer-top">
-      <a class="brand" href="/" aria-label="Tejas Cooperative Partners, home">
-        <img class="brand-icon" src="/assets/tejas-icon.jpg" alt="" aria-hidden="true">
-        <span class="brand-text">
-          <span class="brand-name">Tejas Cooperative Partners</span>
-          <span class="brand-sub">Cooperative Contract Consulting</span>
-        </span>
-      </a>
+      <img class="footer-lockup" src="/assets/logo-lockup.svg" alt="Tejas Cooperative Partners, Cooperative Contract Consulting" width="300" height="104">
       <nav class="footer-nav" aria-label="Footer">
         <a href="/#services">Services</a>
         <a href="/#pricing">Pricing</a>

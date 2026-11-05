@@ -5,4 +5,4 @@ export const SITE_ORIGIN = "https://tejascooperative.com";
 export const SITE_NAME = "Tejas Cooperative Partners";
 export const SUPABASE_URL = "https://zxupxnpcmueemslgjbua.supabase.co";
 export const SUPABASE_PUBLISHABLE_KEY = "sb_publishable_wEG34SvFP6BzRMxbRLnMRg_rFWXC7ph";
-export const DEFAULT_OG_IMAGE = `${SITE_ORIGIN}/assets/tejas-lockup.jpg`;
+export const DEFAULT_OG_IMAGE = `${SITE_ORIGIN}/assets/og-image.png`;

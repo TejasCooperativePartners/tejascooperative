@@ -44,8 +44,8 @@ a:hover{text-decoration:underline}
 .brand{display:flex;align-items:center;gap:12px;text-decoration:none}
 .brand:hover{text-decoration:none}
 .brand-star{width:36px;height:36px;fill:var(--gold);flex:none}
-.brand-icon{height:48px;width:auto;flex:none;border-radius:7px}
-.footer-lockup{max-width:440px;width:100%;height:auto;border-radius:10px;margin-bottom:12px}
+.brand-logo{height:46px;width:auto;flex:none;display:block}
+.footer-lockup{max-width:300px;width:100%;height:auto;margin-bottom:12px}
 .brand-text{display:flex;flex-direction:column;line-height:1.2}
 .brand-name{font-family:"Fraunces",Georgia,serif;font-size:1.18rem;font-weight:700;color:var(--white)}
 .brand-sub{font-size:.7rem;letter-spacing:.18em;text-transform:uppercase;color:#c9d4e0}
@@ -340,7 +340,7 @@ section[id]{scroll-margin-top:84px}
 .nav-actions{padding-left:14px}
 @media (max-width:520px){
   .brand{flex:1 1 auto;min-width:0}
-  .brand-icon{height:40px}
+  .brand-logo{height:36px}
   .brand-name{font-size:1rem}
   .brand-sub{display:none}
   .header-inner{gap:10px}
