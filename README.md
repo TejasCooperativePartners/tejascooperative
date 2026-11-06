@@ -71,4 +71,4 @@ The `gh-pages` branch served the old GitHub Pages address and is retired by this
 
 ## Accessibility statement and cookie notice
 
-`js/notices.js` (loaded on every public page) adds the floating accessibility icon with its statement dialog, the cookie notice banner, and a full cookie notice dialog. Footer links "Accessibility" and "Cookie Notice" reopen them. Wording lives at the top of that file; update it when the site's data practices change (for example if analytics are added, the cookie notice must change and consent should be requested).
+`js/notices.js` (loaded on every public page) adds the floating accessibility icon with its statement dialog, the cookie notice banner, and a full cookie notice dialog. Footer links "Accessibility" and "Cookie Notice" reopen them. Wording lives at the top of that file; update it when the site's data practices change (analytics runs in Google consent mode: denied until the visitor accepts).

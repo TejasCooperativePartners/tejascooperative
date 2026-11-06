@@ -94,6 +94,8 @@ function page({ title, description, canonical, ogType = "website", ogImage = DEF
 <script>
 window.dataLayer = window.dataLayer || [];
 function gtag(){dataLayer.push(arguments);}
+gtag('consent', 'default', {analytics_storage: 'denied', ad_storage: 'denied', ad_user_data: 'denied', ad_personalization: 'denied'});
+try { if (localStorage.getItem('tcp_analytics_consent') === 'granted') gtag('consent', 'update', {analytics_storage: 'granted'}); } catch (e) {}
 gtag('js', new Date());
 gtag('config', 'G-2MWELBN2Q3');
 </script>

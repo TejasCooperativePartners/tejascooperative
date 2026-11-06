@@ -1,8 +1,10 @@
 /* Accessibility statement (floating icon + dialog) and cookie notice (banner + dialog).
-   Loaded on every public page. No tracking: the notice only remembers that it was acknowledged. */
+   Loaded on every public page. Analytics (Google Analytics 4) stays in consent-denied mode until the visitor accepts;
+   the choice is stored in localStorage under tcp_analytics_consent. */
 (function () {
   var KEY = "tcp_cookie_notice";
-  var UPDATED = "November 5, 2026";
+  var UPDATED = "November 6, 2026";
+  var CONSENT_KEY = "tcp_analytics_consent";
 
   var A11Y_HTML =
     '<h2 id="a11y-title">Accessibility Statement</h2>' +
@@ -25,17 +27,18 @@
 
   var COOKIE_HTML =
     '<h2 id="cookie-title">Cookie Notice</h2>' +
-    "<p>This website does not use advertising, tracking, or analytics cookies, and it does not sell or share visitor data.</p>" +
+    "<p>This website does not use advertising cookies, and it does not sell visitor data. With your permission, we use Google Analytics to understand how visitors use the site.</p>" +
     "<h3>What may be stored</h3>" +
     "<ul>" +
-    "<li><strong>This notice.</strong> Your browser remembers that you acknowledged it, so we do not ask again. It stays on your device and is not sent to us.</li>" +
+    "<li><strong>Analytics cookies (only if you accept).</strong> If you choose Accept, Google Analytics sets cookies that count visits and show which pages are used. Until you accept, or if you decline, no analytics cookies are set. Google may still receive limited, cookie-free signals from your browser (such as page address and IP address) so it can produce aggregate counts.</li>"+
+    "<li><strong>Your choice.</strong> Your browser remembers whether you accepted or declined analytics, so we do not ask again. It stays on your device and is not sent to us.</li>" +
     "<li><strong>Sign-in cookies.</strong> If you sign in to the client portal or the blog editor, a strictly necessary session cookie keeps you signed in. It is used only for that purpose.</li>" +
     "</ul>" +
     "<h3>Third-party fonts</h3>" +
     "<p>Our pages load fonts from Google Fonts. When a page loads, Google receives your IP address and browser details in order to deliver the fonts. We do not control what Google does with that information; see Google's privacy policy for details.</p>" +
     "<p>Our forms use Cloudflare Turnstile to tell people from automated programs. See our <a href=\"/privacy\">Privacy Policy</a> for how information is used.</p>" +
     "<h3>Your choices</h3>" +
-    "<p>You can delete or block cookies in your browser settings. Blocking sign-in cookies will prevent you from signing in.</p>" +
+    "<p>You can change your analytics choice at any time using the Cookie Notice link in the footer, or delete or block cookies in your browser settings. Blocking sign-in cookies will prevent you from signing in.</p>" +
     '<p class="notice-meta">Last updated ' + UPDATED + ".</p>";
 
   var ICON =
@@ -76,9 +79,9 @@
     var banner = el(
       '<div class="cookie-notice" role="region" aria-label="Cookie notice" hidden>' +
         '<p class="cookie-notice-label">Cookie Notice</p>' +
-        "<p>We do not use advertising or tracking cookies. Only essential cookies are used, such as keeping you signed in to the portal. " +
+        "<p>We use essential cookies, such as keeping you signed in to the portal, and, only if you accept, Google Analytics cookies to count visits. We do not use advertising cookies. " +
         '<button type="button" class="notice-link" data-open="cookie">Read the full notice</button>.</p>' +
-        '<div class="cookie-notice-actions"><button type="button" class="notice-btn notice-btn-primary" data-ack>Got it</button></div>' +
+        '<div class="cookie-notice-actions"><button type="button" class="notice-btn" data-decline>Decline</button><button type="button" class="notice-btn notice-btn-primary" data-ack>Accept</button></div>' +
         "</div>"
     );
 
@@ -87,6 +90,13 @@
     document.body.appendChild(fab);
     document.body.appendChild(banner);
 
+    var choice = el('<div class="notice-dialog-actions"><button type="button" class="notice-btn" data-choice="denied">Decline analytics</button><button type="button" class="notice-btn notice-btn-primary" data-choice="granted">Accept analytics</button></div>');
+    cookieDialog.querySelector(".notice-dialog-inner").insertBefore(choice, cookieDialog.querySelector(".notice-dialog-actions"));
+    choice.addEventListener("click", function (e) {
+      var c = e.target.closest && e.target.closest("[data-choice]");
+      if (c) { setConsent(c.getAttribute("data-choice") === "granted"); cookieDialog.close(); }
+    });
+
     function open(which, opener) {
       var d = which === "a11y" ? a11yDialog : cookieDialog;
       d._opener = opener || null;
@@ -94,15 +104,19 @@
       else d.setAttribute("open", "");
     }
 
-    var seen = false;
-    try { seen = !!localStorage.getItem(KEY); } catch (e) {}
-    if (!seen) banner.hidden = false;
-
-    banner.querySelector("[data-ack]").addEventListener("click", function () {
-      try { localStorage.setItem(KEY, "acknowledged"); } catch (e) {}
+    function setConsent(granted) {
+      try { localStorage.setItem(KEY, "acknowledged"); localStorage.setItem(CONSENT_KEY, granted ? "granted" : "denied"); } catch (e) {}
+      if (typeof window.gtag === "function") window.gtag("consent", "update", { analytics_storage: granted ? "granted" : "denied" });
       banner.hidden = true;
       fab.focus();
-    });
+    }
+
+    var seen = false;
+    try { seen = !!localStorage.getItem(CONSENT_KEY); } catch (e) {}
+    if (!seen) banner.hidden = false;
+
+    banner.querySelector("[data-ack]").addEventListener("click", function () { setConsent(true); });
+    banner.querySelector("[data-decline]").addEventListener("click", function () { setConsent(false); });
 
     fab.addEventListener("click", function () { open("a11y", fab); });
     document.addEventListener("click", function (e) {
