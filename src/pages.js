@@ -17,7 +17,7 @@ export const CONTACT_PAGE = {
   title: "Contact Us",
   description:
     "Contact Tejas Cooperative Partners about cooperative purchasing contracts for your Texas business. Send your name, company, phone, email, and a few details and we will get back to you.",
-  body: `${hero("Contact", "Contact Us", "Tell us a little about your business and what you need. We read every message and reply by email or phone.")}
+  body: `${hero("Contact", "Contact Us", "Tell us a little about your business and what you need. We read every message and reply by email or phone. Call us at <a href='tel:+17372398700'>(737) 239-8700</a>.")}
 <section class="section">
   <div class="wrap contact-page-grid">
     <form class="contact-form" id="contact-form" novalidate>
