@@ -459,3 +459,19 @@ section[id]{scroll-margin-top:84px}
 .legal a{color:var(--rust);text-decoration:underline}
 .legal-intro{font-size:1.1rem!important}
 @media (max-width:860px){.contact-page-grid{grid-template-columns:1fr;gap:28px}.cf-row{grid-template-columns:1fr}.contact-form{padding:20px}}
+
+/* Reach stats */
+.stats-band{background:var(--navy-deep);color:#dbe4ee;padding:48px 0;border-bottom:3px solid var(--gold)}
+.stat-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:28px}
+.stat{margin:0;padding-top:16px;border-top:3px solid var(--gold)}
+.stat-figure{font-family:"Fraunces",Georgia,serif;font-size:2.6rem;line-height:1.05;font-weight:600;color:var(--white)}
+.stat-label{font-size:.78rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--gold);margin:.4rem 0 .7rem}
+.stat-text{font-size:.97rem;color:#c3d2e2}
+.stat-source{font-size:.8rem;color:#8fa4ba;margin-top:.6rem}
+.stats-compact{padding:36px 0}
+.stats-compact .stat-figure{font-size:2.1rem}
+@media (max-width:820px){
+  .stat-grid{grid-template-columns:1fr;gap:26px}
+  .stats-band{padding:36px 0}
+  .stat-figure{font-size:2.2rem}
+}
