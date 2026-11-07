@@ -72,3 +72,7 @@ The `gh-pages` branch served the old GitHub Pages address and is retired by this
 ## Accessibility statement and cookie notice
 
 `js/notices.js` (loaded on every public page) adds the floating accessibility icon with its statement dialog, the cookie notice banner, and a full cookie notice dialog. Footer links "Accessibility" and "Cookie Notice" reopen them. Wording lives at the top of that file; update it when the site's data practices change (analytics runs in Google consent mode: denied until the visitor accepts).
+
+## Design system
+
+`styles.css` starts with the shared `--cp-*` tokens, identical to the client portal's `portal.css` (platform repo). Change colors, radii or the tap size there and in the portal together. The "Portal alignment layer" at the end of the file holds the button, card, chip, form and link treatments. See `Docs/site-portal-uniform-report.md`.
