@@ -1,23 +1,34 @@
 :root{
-  --ink:#12263a;
-  --navy:#0e2a47;
-  --navy-deep:#0a1f36;
-  --rust:#b5501a;
-  --rust-dark:#96420f;
-  --gold:#d9a441;
-  --sand:#f6f1e7;
-  --paper:#fffdf8;
-  --line:#e3dac8;
-  --muted:#5a6a7a;
+  /* ==== Shared design tokens: identical values to the client portal (portal.css, --cp-*). ==== */
+  --cp-navy:#0a1f36; --cp-navy-2:#0e2a47; --cp-navy-3:#17395e;
+  --cp-gold:#d9a441; --cp-gold-soft:#f6e7c4;
+  --cp-sand:#f6f4ef; --cp-sand-2:#ece8de; --cp-paper:#ffffff;
+  --cp-ink:#14202e; --cp-muted:#56606c; --cp-line:#e1dccf;
+  --cp-ok:#1f6f4a; --cp-ok-soft:#dcf0e5; --cp-warn-soft:#fbefd0; --cp-warn-ink:#7a5206;
+  --cp-alert:#a63a12; --cp-alert-soft:#fbe3d6;
+  --cp-radius:.75rem; --cp-radius-sm:.5rem;
+  --cp-shadow:0 1px 2px rgba(10,31,54,.06),0 6px 20px -12px rgba(10,31,54,.25);
+  --cp-tap:2.75rem;
+  /* ==== Site names mapped onto the shared tokens (site rules keep using these). ==== */
+  --ink:var(--cp-ink);
+  --navy:var(--cp-navy-2);
+  --navy-deep:var(--cp-navy);
+  --rust:var(--cp-navy-3);      /* the old rust accent is retired: accents are navy and gold, as in the portal */
+  --rust-dark:var(--cp-navy);
+  --gold:var(--cp-gold);
+  --sand:var(--cp-sand);
+  --paper:var(--cp-paper);
+  --line:var(--cp-line);
+  --muted:var(--cp-muted);
   --white:#ffffff;
-  --radius:14px;
+  --radius:var(--cp-radius);
 }
 *{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth}
 body{
   font-family:"Inter",system-ui,-apple-system,"Segoe UI",sans-serif;
   color:var(--ink);
-  background:var(--paper);
+  background:var(--cp-sand);
   line-height:1.6;
   font-size:16.5px;
 }
@@ -32,7 +43,7 @@ a:hover{text-decoration:underline}
   color:var(--rust);margin-bottom:.65rem;
 }
 .section{padding:74px 0}
-.section-alt{background:var(--sand)}
+.section-alt{background:var(--cp-paper)}
 .section-lead{max-width:760px;color:#33475c;margin-bottom:1.6rem;font-size:1.06rem}
 
 /* Header */
@@ -475,3 +486,106 @@ section[id]{scroll-margin-top:84px}
   .stats-band{padding:36px 0}
   .stat-figure{font-size:2.2rem}
 }
+
+/* ==========================================================================
+   PORTAL ALIGNMENT LAYER
+   Makes the public site read as the same product as the client portal (portal.css in the platform repo):
+   navy primary buttons and gold on dark, white cards with the portal shadow, labeled chips, notices, form
+   fields, 44px tap targets, gold focus rings. Colors and radii come from the shared --cp-* tokens above.
+   Presentation only: nothing here changes copy, markup, or behavior. The hero background is untouched.
+   ========================================================================== */
+
+/* sections: sand page, white alternate bands, cards invert against their band like the portal */
+.section-alt .card,.section-alt .steps li,.section-alt .chip-list li,.section-alt .faq-list details{background:var(--cp-sand)}
+.section-lead{color:var(--cp-muted)}
+.eyebrow{font-size:.75rem;letter-spacing:.1em;color:var(--cp-muted)}
+.hero .eyebrow,.page-hero .eyebrow,.contact-section .eyebrow,.coop-band .eyebrow{color:var(--cp-gold)}
+
+/* links: navy with a gold underline in running text, plain in chrome */
+a{color:var(--cp-navy-3)}
+.section-lead a,.legal a,.article-body a,.faq-list a,.card p a,.contact-side a:not(.btn),.fr-submit-note a,.notice-dialog a,.benefit-link,.cf-check a,.fr-privacy a{
+  text-decoration:underline;text-decoration-color:var(--cp-gold);text-underline-offset:3px}
+.page-hero a:not(.btn):not(.back-link),.contact-section a:not(.btn),.coop-band a:not(.btn),.stats-band a,.post-cta-box a:not(.btn),.cookie-notice a{color:var(--cp-gold)}
+.site-footer a{color:#dbe4ee}
+.site-footer a:hover{color:var(--cp-gold)}
+
+/* buttons: portal .cp-btn (navy primary, gold on dark, ghost), 44px minimum */
+.btn,.nav-cta,.nav-login,.fr-btn,.notice-btn{
+  display:inline-flex;align-items:center;justify-content:center;gap:.5rem;min-height:var(--cp-tap);
+  padding:0 1.35rem;border-radius:var(--cp-radius-sm);font-size:.95rem;font-weight:600;line-height:1.2;text-align:center;
+  border:1px solid transparent;cursor:pointer;transition:background-color .15s,border-color .15s,color .15s}
+.btn-primary,.fr-btn-primary,.notice-btn-primary{background:var(--cp-navy);border-color:var(--cp-navy);color:#fff}
+.btn-primary:hover,.fr-btn-primary:hover,.notice-btn-primary:hover{background:var(--cp-navy-3);border-color:var(--cp-navy-3);color:#fff}
+.hero .btn-primary,.page-hero .btn-primary,.contact-section .btn-primary,.coop-band .btn-primary,.post-cta-box .btn-primary,.nav-cta,.cookie-notice .notice-btn-primary{
+  background:var(--cp-gold);border-color:var(--cp-gold);color:var(--cp-navy)}
+.hero .btn-primary:hover,.page-hero .btn-primary:hover,.contact-section .btn-primary:hover,.coop-band .btn-primary:hover,.post-cta-box .btn-primary:hover,.nav-cta:hover,.cookie-notice .notice-btn-primary:hover{
+  background:#e6b653;border-color:#e6b653;color:var(--cp-navy)}
+.btn-ghost{border-color:rgba(255,255,255,.5)}
+.btn-ghost:hover{border-color:var(--cp-gold);color:var(--cp-gold)}
+.btn-ghost-dark,.fr-btn-ghost{background:var(--cp-paper);border:1px solid #b9b3a3;color:var(--cp-navy)}
+.btn-ghost-dark:hover,.fr-btn-ghost:hover{background:var(--cp-sand-2);color:var(--cp-navy)}
+.nav-login{border-color:rgba(255,255,255,.4);padding:0 1rem}
+.notice-btn{border-color:#b9b3a3;background:var(--cp-paper)}
+.fr-btn-primary:disabled{opacity:.6}
+.contact-form button[disabled]{opacity:.6}
+.fr-check input,.cf-check input{accent-color:var(--cp-navy)}
+.hero{border-bottom:3px solid var(--cp-gold)}
+
+/* cards, steps, chips, notices */
+.card,.steps li,.blog-card,.contact-form,.contact-success{border-color:var(--cp-line);border-radius:var(--cp-radius);box-shadow:var(--cp-shadow)}
+.section-alt .card,.section-alt .steps li{border-color:var(--cp-line)}
+.card-feature{border:1px solid var(--cp-gold);border-top-width:1px;background:linear-gradient(180deg,#fffaf0,var(--cp-paper))}
+.section-alt .card-feature{background:linear-gradient(180deg,#fffaf0,var(--cp-paper))}
+.card-tag{display:inline-flex;align-items:center;font-size:.72rem;font-weight:600;letter-spacing:.02em;text-transform:none;
+  color:var(--cp-warn-ink);background:var(--cp-gold-soft);border-radius:9999px;padding:.15rem .65rem;margin-bottom:.6rem}
+.card-tag.tag-dev{color:var(--cp-ink);background:var(--cp-sand-2)}
+.coop-band .card{box-shadow:none}
+.steps li::before{background:var(--cp-navy);box-shadow:0 0 0 4px rgba(217,164,65,.25)}
+.chip-list li{border-color:var(--cp-line);color:var(--cp-navy)}
+.blog-tag{color:var(--cp-warn-ink);background:var(--cp-gold-soft)}
+.note-bar,.fr-fail,.contact-note{border-radius:var(--cp-radius-sm)}
+.note-bar{background:var(--cp-warn-soft);border:1px solid #ecd49b;border-left:4px solid var(--cp-gold);color:var(--cp-warn-ink)}
+.faq-list details{border-radius:var(--cp-radius-sm);border-color:var(--cp-line)}
+.faq-list summary{min-height:var(--cp-tap);display:flex;align-items:center;padding:.4rem 0}
+.stat{border-top-width:3px}
+.post-cta-box{border-radius:var(--cp-radius)}
+
+/* forms: portal field style (1px #b9b3a3, gold focus ring), 16px text, 44px height */
+.fr-field input[type=text],.fr-field input[type=email],.fr-field input[type=tel],.fr-field select,.fr-field textarea,
+.contact-form input[type=text],.contact-form input[type=tel],.contact-form input[type=email],.contact-form textarea{
+  border:1px solid #b9b3a3;border-radius:var(--cp-radius-sm);font-size:1rem;min-height:var(--cp-tap);background:#fff;color:var(--cp-ink)}
+.fr-field textarea,.contact-form textarea{min-height:8rem}
+.fr-field input:focus,.fr-field select:focus,.fr-field textarea:focus,
+.contact-form input:focus-visible,.contact-form textarea:focus-visible{outline:3px solid rgba(217,164,65,.55);outline-offset:0;border-color:var(--cp-gold)}
+.fr-field label,.fr-field legend,.contact-form label{color:var(--cp-ink);font-weight:500;font-size:.9rem}
+.fr-seg-opt span,.fr-chip span{display:inline-flex;align-items:center;min-height:var(--cp-tap);border:1px solid #b9b3a3}
+.fr-progress{color:var(--cp-muted);letter-spacing:.08em}
+.fr-check,.cf-check{min-height:var(--cp-tap);align-items:center!important}
+.fr-x{min-width:var(--cp-tap);min-height:var(--cp-tap);display:inline-flex;align-items:center;justify-content:center}
+.fr-dialog,.notice-dialog{border-radius:var(--cp-radius)}
+.fr-ref strong{color:var(--cp-navy)}
+.cf-req{color:var(--cp-alert)}
+.cf-error,.fr-error,.contact-form [aria-invalid=true]{color:var(--cp-alert)}
+.contact-form [aria-invalid=true]{border-color:var(--cp-alert)}
+.fr-invalid input:not([type=radio]):not([type=checkbox]),.fr-invalid select,.fr-invalid textarea{border-color:var(--cp-alert)}
+.fr-error{color:var(--cp-alert)}
+.fr-fail{border-color:#e5b49b;background:var(--cp-alert-soft);color:#7a2a0c}
+
+/* header and footer tap targets */
+.nav-link{min-height:var(--cp-tap);display:flex;align-items:center}
+.submenu a{min-height:var(--cp-tap);display:flex;align-items:center}
+.nav-toggle{min-width:var(--cp-tap);min-height:var(--cp-tap)}
+.footer-nav a,.footer-nav button{min-height:var(--cp-tap);display:inline-flex;align-items:center}
+.footer-nav{gap:0 22px}
+.notice-link{display:inline}
+.cookie-notice{border-radius:var(--cp-radius);box-shadow:0 8px 28px rgba(10,31,54,.4)}
+
+/* phones: primary actions full width, safe-area padding for the notch and home bar */
+@media (max-width:640px){
+  .hero-actions .btn,.contact-action .btn,.contact-form .btn,.contact-success .btn,.post-cta-box .btn,.not-found .btn,.contact-side .btn{width:100%}
+  .hero-actions{flex-direction:column;gap:10px}
+  .wrap{padding-left:max(22px,env(safe-area-inset-left));padding-right:max(22px,env(safe-area-inset-right))}
+  .site-footer{padding-bottom:calc(34px + env(safe-area-inset-bottom))}
+  .cookie-notice-actions .notice-btn{flex:1}
+}
+@media (prefers-reduced-motion:reduce){.btn,.nav-cta,.nav-login,.fr-btn,.notice-btn{transition:none}}
