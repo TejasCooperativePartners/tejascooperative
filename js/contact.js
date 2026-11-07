@@ -80,7 +80,7 @@
     var payload = {
       idempotency_key: key,
       full_name: el("full_name").value, company_name: el("company_name").value,
-      phone: el("phone").value, email: el("email").value, details: el("details").value,
+      phone: (window.TejasPhone ? window.TejasPhone.storage(el("phone").value) : el("phone").value), email: el("email").value, details: el("details").value,
       consent_to_contact: true, company_fax: el("company_fax").value,
       source_page_path: location.pathname, turnstile_token: token
     };

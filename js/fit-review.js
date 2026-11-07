@@ -5,6 +5,8 @@
   var ENDPOINT = "https://portal.tejascooperative.com/api/public/fit-review-requests";
   var TURNSTILE_SITE_KEY = window.TEJAS_TURNSTILE_SITE_KEY || "0x4AAAAAAF1HYbeNeZyQhFrn";
   var tsWidget = null;
+  if (!window.TejasPhone) { var pm = document.createElement("script"); pm.src = "/js/phone-mask.js"; document.head.appendChild(pm); }
+  function phoneStore(v) { return window.TejasPhone ? window.TejasPhone.storage(v) : v; }
 
   var STATUSES = [
     ["currently_holds", "Currently hold a cooperative contract"],
@@ -189,7 +191,7 @@
 
   function payload() {
     var f = form(), p = {};
-    ["contact_name", "company_name", "email", "phone", "company_website", "offerings", "service_area", "cooperative_status", "target_invitation", "primary_obstacle", "additional_notes"].forEach(function (k) { p[k] = val(k); });
+    ["contact_name", "company_name", "email", "phone", "company_website", "offerings", "service_area", "cooperative_status", "target_invitation", "primary_obstacle", "additional_notes"].forEach(function (k) { p[k] = k === "phone" ? phoneStore(val(k)) : val(k); });
     var m = f.querySelector('input[name="preferred_contact_method"]:checked');
     p.preferred_contact_method = m ? m.value : "no_preference";
     p.cooperative_interests = Array.prototype.map.call(f.querySelectorAll('input[name="cooperative_interests"]:checked'), function (c) { return c.value; });
