@@ -53,6 +53,8 @@ export const CONTACT_PAGE = {
       <p><a class="btn btn-ghost-dark" href="/">Back to the home page</a></p>
     </div>
     <aside class="contact-side" aria-label="Other ways to start">
+      <h2>Our office</h2>
+      <address class="contact-address">Tejas Cooperative Partners<br>5900 Balcones Drive, Suite 100<br>Austin, Texas 78731</address>
       <h2>What happens next</h2>
       <p>A partner reads your message and replies, usually within one business day.</p>
       <h2>Ready to talk about a contract?</h2>
