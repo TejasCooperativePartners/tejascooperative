@@ -133,6 +133,7 @@ ${FOOTER_HTML}
 <script src="/js/fit-review.js"></script>
 <script src="/js/notices.js" defer></script>
 ${scripts}
+<script src="https://portal.tradecallpro.co/embed/charlie-widget.js" data-token="a2fdaa0c-6a99-487e-9f52-5d9297ef9674"></script>
 </body>
 </html>`;
 }

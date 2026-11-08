@@ -69,9 +69,13 @@ Status: live as of November 4, 2026. Checks run: apex over HTTPS returns 200 wit
 The `gh-pages` branch served the old GitHub Pages address and is retired by this move. Its history is intentionally left in place and is not deleted. No page element should reference github.io.
 
 
+## Web chat widget (Tex AI)
+
+Every public page loads the Tradecall Pro web chat widget: one script tag, `https://portal.tradecallpro.co/embed/charlie-widget.js` with the tenant `data-token`, placed after the page scripts in `page()` in `src/worker.js` (blog, contact, legal pages) and at the end of `index.html`. The blog admin templates do not carry it. The widget's name, greeting, color, and answers are configured in the Tradecall Pro portal (Charlie AI settings), not in this repo. It sits bottom-right; the accessibility icon sits bottom-left, and the cookie notice stacks above it. Visitor messages go to Tradecall Pro and its AI provider (see `Docs/ai-data-path-attestation.md` in the platform repo).
+
 ## Accessibility statement and cookie notice
 
-`js/notices.js` (loaded on every public page) adds the floating accessibility icon with its statement dialog, the cookie notice banner, and a full cookie notice dialog. Footer links "Accessibility" and "Cookie Notice" reopen them. Wording lives at the top of that file; update it when the site's data practices change (analytics runs in Google consent mode: denied until the visitor accepts).
+`js/notices.js` (loaded on every public page) adds the floating accessibility icon (bottom-left) with its statement dialog, the cookie notice banner, and a full cookie notice dialog. Footer links "Accessibility" and "Cookie Notice" reopen them. Wording lives at the top of that file; update it when the site's data practices change (analytics runs in Google consent mode: denied until the visitor accepts).
 
 ## Design system
 
