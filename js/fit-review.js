@@ -27,6 +27,7 @@
     ["something_else", "Something else"]
   ];
   var COOPS = ["BuyBoard", "TIPS", "Choice Partners", "HGACBuy", "Sourcewell", "OMNIA Partners", "Texas state term contracts", "Not sure yet"];
+  var STATES = [["AL","Alabama"],["AK","Alaska"],["AZ","Arizona"],["AR","Arkansas"],["CA","California"],["CO","Colorado"],["CT","Connecticut"],["DE","Delaware"],["DC","District of Columbia"],["FL","Florida"],["GA","Georgia"],["HI","Hawaii"],["ID","Idaho"],["IL","Illinois"],["IN","Indiana"],["IA","Iowa"],["KS","Kansas"],["KY","Kentucky"],["LA","Louisiana"],["ME","Maine"],["MD","Maryland"],["MA","Massachusetts"],["MI","Michigan"],["MN","Minnesota"],["MS","Mississippi"],["MO","Missouri"],["MT","Montana"],["NE","Nebraska"],["NV","Nevada"],["NH","New Hampshire"],["NJ","New Jersey"],["NM","New Mexico"],["NY","New York"],["NC","North Carolina"],["ND","North Dakota"],["OH","Ohio"],["OK","Oklahoma"],["OR","Oregon"],["PA","Pennsylvania"],["RI","Rhode Island"],["SC","South Carolina"],["SD","South Dakota"],["TN","Tennessee"],["TX","Texas"],["UT","Utah"],["VT","Vermont"],["VA","Virginia"],["WA","Washington"],["WV","West Virginia"],["WI","Wisconsin"],["WY","Wyoming"]];
   var METHODS = [["email", "Email"], ["phone_call", "Phone call"], ["text_message", "Text message"], ["no_preference", "No preference"]];
 
   var root, dialog, opener, step = 1, idemKey = null, submitting = false, sent = false, retryKey = false, turnstileToken = "";
@@ -80,6 +81,13 @@
             '<div class="fr-step" data-step="2" hidden>' +
               field("offerings", "What does your company sell or provide?", '<textarea id="fr-offerings" name="offerings" rows="3" maxlength="1000" required aria-describedby="fr-offerings-help fr-offerings-error"></textarea>', "Products, services, brands, or category names.") +
               field("service_area", "Where do you sell or provide services?", '<textarea id="fr-service_area" name="service_area" rows="2" maxlength="300" required placeholder="Rio Grande Valley and Texas statewide" aria-describedby="fr-service_area-help fr-service_area-error"></textarea>', "Include your home base and the areas you cover.") +
+              '<div class="fr-addr"><p class="fr-group">Corporate address</p>' +
+                field("corporate_street", "Street address", text("corporate_street", "text", 'autocomplete="street-address" maxlength="200" required')) +
+                '<div class="fr-addr-row">' +
+                  field("corporate_city", "City", text("corporate_city", "text", 'autocomplete="address-level2" maxlength="100" required')) +
+                  field("corporate_state", "State", select("corporate_state", STATES, "State").replace('<select ', '<select autocomplete="address-level1" ')) +
+                  field("corporate_zip", "ZIP code", text("corporate_zip", "text", 'inputmode="numeric" autocomplete="postal-code" maxlength="10" required')) +
+                '</div></div>' +
               field("cooperative_status", "What is your current cooperative status?", select("cooperative_status", STATUSES, "Choose one")) +
               '<fieldset class="fr-field" data-field="cooperative_interests"><legend>Which cooperatives are you considering? <span class="fr-opt">Optional</span></legend><div class="fr-chips">' +
                 COOPS.map(function (c) { return '<label class="fr-chip"><input type="checkbox" name="cooperative_interests" value="' + esc(c) + '"><span>' + esc(c) + '</span></label>'; }).join("") +
@@ -165,6 +173,10 @@
     } else {
       if (!val("offerings")) bad("offerings", "Tell us what you sell or provide.");
       if (!val("service_area")) bad("service_area", "Tell us where you sell or provide services.");
+      if (!val("corporate_street")) bad("corporate_street", "Enter the corporate street address.");
+      if (!val("corporate_city")) bad("corporate_city", "Enter the city.");
+      if (!val("corporate_state")) bad("corporate_state", "Choose the state.");
+      if (!/^\d{5}(-\d{4})?$/.test(val("corporate_zip"))) bad("corporate_zip", "Enter a 5-digit ZIP code.");
       if (!val("cooperative_status")) bad("cooperative_status", "Choose your current cooperative status.");
       if (!val("primary_obstacle")) bad("primary_obstacle", "Choose your biggest obstacle.");
       if (!f.elements.consent_to_contact.checked) bad("consent_to_contact", "Please confirm you want us to contact you.");
@@ -191,7 +203,7 @@
 
   function payload() {
     var f = form(), p = {};
-    ["contact_name", "company_name", "email", "phone", "company_website", "offerings", "service_area", "cooperative_status", "target_invitation", "primary_obstacle", "additional_notes"].forEach(function (k) { p[k] = k === "phone" ? phoneStore(val(k)) : val(k); });
+    ["contact_name", "company_name", "email", "phone", "company_website", "offerings", "service_area", "corporate_street", "corporate_city", "corporate_state", "corporate_zip", "cooperative_status", "target_invitation", "primary_obstacle", "additional_notes"].forEach(function (k) { p[k] = k === "phone" ? phoneStore(val(k)) : val(k); });
     var m = f.querySelector('input[name="preferred_contact_method"]:checked');
     p.preferred_contact_method = m ? m.value : "no_preference";
     p.cooperative_interests = Array.prototype.map.call(f.querySelectorAll('input[name="cooperative_interests"]:checked'), function (c) { return c.value; });
