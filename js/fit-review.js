@@ -101,9 +101,9 @@
           '<p class="fr-submit-note" id="fr-submit-note" hidden>Submitting this form sends your information to Tejas Cooperative Partners. See our <a href="/privacy">Privacy Policy</a>.</p>' +
         '</form>' +
         '<div class="fr-done" id="fr-done" hidden>' +
-          '<h3 tabindex="-1" id="fr-done-title">Request received</h3>' +
-          '<p>Thank you. A partner reviews every fit review request before platform access is offered. If your category and timing look like a fit, we will contact you using the method you selected.</p>' +
-          '<p class="fr-ref">Your reference <strong id="fr-ref"></strong></p>' +
+          '<div class="fr-done-head"><span class="fr-done-check" aria-hidden="true"></span><h3 tabindex="-1" id="fr-done-title">Request received</h3></div>' +
+          '<p id="fr-done-copy"></p>' +
+          '<div class="fr-ref"><span class="fr-ref-label">Your reference</span><strong id="fr-ref"></strong></div>' +
           '<div class="fr-actions"><button type="button" class="fr-btn fr-btn-primary" id="fr-finish">Done</button></div></div>' +
       '</div>';
     document.body.appendChild(root);
@@ -217,7 +217,7 @@
     fetch(ENDPOINT, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(payload()) })
       .then(function (res) { return res.json().catch(function () { return {}; }).then(function (b) { return { status: res.status, body: b }; }); })
       .then(function (r) {
-        if ((r.status === 201 || r.status === 409) && r.body && r.body.reference_code) { success(r.body.reference_code); return; }
+        if ((r.status === 201 || r.status === 409) && r.body && r.body.reference_code) { success(r.body.reference_code, r.body.confirmation_copy); return; }
         resetTurnstile();
         if (r.status === 400 && r.body && r.body.errors && r.body.errors.form) { failure(); return; }
         if (r.status === 400 && r.body && r.body.errors) {
@@ -238,10 +238,12 @@
     var fail = root.querySelector("#fr-fail"); fail.hidden = false;
     root.querySelector(".fr-body").scrollTop = root.querySelector(".fr-body").scrollHeight;
   }
-  function success(code) {
+  // The next-steps wording comes from the platform (one source, also used by the acknowledgment email).
+  function success(code, copy) {
     sent = true;
     root.querySelector("form").hidden = true;
     root.querySelector("#fr-ref").textContent = code;
+    var c = root.querySelector("#fr-done-copy"); c.textContent = copy || ""; c.hidden = !copy;
     var d = root.querySelector("#fr-done"); d.hidden = false;
     root.querySelector("#fr-progress").textContent = "";
     root.querySelector("#fr-sub").hidden = true;
