@@ -1,3 +1,4 @@
+import { homeWithTicker } from "./ticker.js";
 /**
  * Tejas Cooperative Partners website Worker.
  *
@@ -44,6 +45,7 @@ export default {
       const slug = decodeURIComponent(path.slice("/blog/".length).replace(/\/$/, ""));
       return renderBlogPost(slug);
     }
+    if (path === "/" || path === "/index.html") return homeWithTicker(request, env);
     return env.ASSETS.fetch(request);
   },
 };

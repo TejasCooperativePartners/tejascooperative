@@ -602,3 +602,27 @@ a{color:var(--cp-navy-3)}
   .cookie-notice-actions .notice-btn{flex:1}
 }
 @media (prefers-reduced-motion:reduce){.btn,.nav-cta,.nav-login,.fr-btn,.notice-btn{transition:none}}
+
+/* Solicitation ticker (homepage, under the stats band) */
+.ticker-band{background:#0A2638;color:#f3ead9;font-size:.85rem;line-height:1.2;border-bottom:3px solid var(--gold)}
+.ticker-inner{position:relative;display:flex;flex-direction:column}
+.ticker-label{margin:0;padding:12px 20px 0;font-size:.72rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--gold)}
+.ticker-viewport{overflow:hidden;padding:12px 0;-webkit-mask-image:linear-gradient(90deg,transparent,#000 40px,#000 calc(100% - 40px),transparent);mask-image:linear-gradient(90deg,transparent,#000 40px,#000 calc(100% - 40px),transparent)}
+.ticker-viewport:focus-visible{outline:2px solid var(--gold);outline-offset:-2px}
+.ticker-track{display:flex;width:max-content;animation:ticker-scroll var(--ticker-duration,75s) linear infinite}
+.ticker-viewport:hover .ticker-track,.ticker-viewport:focus .ticker-track,.ticker-viewport:focus-within .ticker-track{animation-play-state:paused}
+.ticker-list{display:flex;flex:none;margin:0;padding:0;list-style:none}
+.ticker-list li{flex:none;white-space:nowrap;padding-right:28px;margin-right:28px;position:relative}
+.ticker-list li::after{content:"";position:absolute;right:-4px;top:50%;width:7px;height:7px;background:var(--gold);transform:translateY(-50%) rotate(45deg)}
+.tk-coop{color:var(--gold);font-weight:600}
+@keyframes ticker-scroll{to{transform:translateX(-50%)}}
+@media (min-width:640px){
+  .ticker-label{position:absolute;z-index:2;left:0;top:0;bottom:0;display:flex;align-items:center;padding:0 48px 0 max(20px,calc((100vw - 1120px)/2));background:linear-gradient(90deg,#0A2638 82%,rgba(10,38,56,0))}
+  .ticker-viewport{padding:14px 0}
+}
+@media (prefers-reduced-motion:reduce){
+  .ticker-track{animation:none;width:auto}
+  .ticker-viewport{overflow-x:auto;-webkit-mask-image:none;mask-image:none}
+  .ticker-dup{display:none}
+}
+@media (min-width:640px) and (prefers-reduced-motion:reduce){.ticker-list{padding-left:min(300px,40vw)}}
