@@ -224,7 +224,7 @@
     if (!validateStep(2)) return;
     submitting = true; retryKey = true;
     var btn = root.querySelector("#fr-submit");
-    btn.disabled = true; btn.textContent = "Sending...";
+    btn.disabled = true; btn.setAttribute("aria-busy", "true"); btn.textContent = "Sending...";
     root.querySelector("#fr-fail").hidden = true;
     fetch(ENDPOINT, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(payload()) })
       .then(function (res) { return res.json().catch(function () { return {}; }).then(function (b) { return { status: res.status, body: b }; }); })
@@ -244,7 +244,7 @@
         failure();
       })
       .catch(function () { resetTurnstile(); failure(); })
-      .then(function () { submitting = false; btn.disabled = false; btn.textContent = root.querySelector("#fr-fail").hidden ? "Request Fit Review" : "Try Again"; });
+      .then(function () { submitting = false; btn.disabled = false; btn.removeAttribute("aria-busy"); btn.textContent = root.querySelector("#fr-fail").hidden ? "Request Fit Review" : "Try Again"; });
   }
   function failure() {
     var fail = root.querySelector("#fr-fail"); fail.hidden = false;
@@ -268,7 +268,7 @@
     Array.prototype.forEach.call(root.querySelectorAll(".fr-error"), function (p) { p.hidden = true; p.textContent = ""; });
     Array.prototype.forEach.call(root.querySelectorAll(".fr-invalid"), function (n) { n.classList.remove("fr-invalid"); });
     sent = false; retryKey = false; idemKey = null;
-    var b = root.querySelector("#fr-submit"); b.textContent = "Request Fit Review"; b.disabled = false;
+    var b = root.querySelector("#fr-submit"); b.textContent = "Request Fit Review"; b.disabled = false; b.removeAttribute("aria-busy");
     showStep(1);
   }
 

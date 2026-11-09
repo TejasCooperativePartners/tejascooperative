@@ -27,6 +27,9 @@ The form posts JSON to the platform: `https://portal.tejascooperative.com/api/pu
 
 Turnstile: on. The widget (site key in `js/fit-review.js`, lazy-loaded when the modal opens) sends `turnstile_token`; the platform verifies it with `TURNSTILE_SECRET_KEY`. Widget "Tejas Cooperative fit review" lives in the Cloudflare Turnstile dashboard for tejascooperative.com, www, and localhost.
 
+## Button feedback policy
+Every button or CTA that starts work acknowledges the click: `aria-busy="true"` draws a spinner (styles.css), form scripts set it with `disabled` and clear it when the action resolves, and `script.js` sets it on CTA links that leave the page. New buttons must follow this. Full policy: Docs/button-feedback-policy.md in tejascooperative-main.
+
 ## Blog
 
 Posts live in the `blog_posts` table of the TejasCooperative Supabase project (migration `20261110000001_public_blog.sql` in the tejascooperative-main repo). The Worker renders `/blog` and `/blog/<slug>` on the server with the publishable key (published rows only, enforced by row-level security), so search engines see full HTML. The sitemap is generated from the same table.

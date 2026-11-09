@@ -75,7 +75,7 @@
     if (Object.keys(errs).length) { showErrors(errs); return; }
     if (TURNSTILE_SITE_KEY && !token) { failure("Please complete the security check, then send again."); return; }
 
-    submitting = true; btn.disabled = true; btn.textContent = "Sending...";
+    submitting = true; btn.disabled = true; btn.setAttribute("aria-busy", "true"); btn.textContent = "Sending...";
     if (!key) key = uuid().replace(/-/g, "");
     var payload = {
       idempotency_key: key,
@@ -101,7 +101,7 @@
         }
       })
       .catch(function () { resetTurnstile(); failure(); })
-      .then(function () { submitting = false; btn.disabled = false; btn.textContent = "Send Message"; });
+      .then(function () { submitting = false; btn.disabled = false; btn.removeAttribute("aria-busy"); btn.textContent = "Send Message"; });
   });
 
   FIELDS.forEach(function (f) { var i = el(f); if (i) i.addEventListener("input", function () { setError(f, ""); }); });

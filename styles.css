@@ -626,3 +626,10 @@ a{color:var(--cp-navy-3)}
   .ticker-dup{display:none}
 }
 @media (min-width:640px) and (prefers-reduced-motion:reduce){.ticker-list{padding-left:min(300px,40vw)}}
+
+/* Click acknowledgment (standard policy): any busy button or CTA link shows a spinner and ignores further clicks. */
+[aria-busy="true"].btn,[aria-busy="true"].nav-cta,[aria-busy="true"].nav-login,[aria-busy="true"].fr-btn,[aria-busy="true"].notice-btn{pointer-events:none;opacity:.85}
+[aria-busy="true"].btn::before,[aria-busy="true"].nav-cta::before,[aria-busy="true"].nav-login::before,[aria-busy="true"].fr-btn::before,[aria-busy="true"].notice-btn::before{
+  content:"";width:1em;height:1em;flex:none;border:2px solid currentColor;border-right-color:transparent;border-radius:50%;animation:btn-spin .7s linear infinite}
+@keyframes btn-spin{to{transform:rotate(360deg)}}
+@media (prefers-reduced-motion:reduce){[aria-busy="true"].btn::before,[aria-busy="true"].nav-cta::before,[aria-busy="true"].nav-login::before,[aria-busy="true"].fr-btn::before,[aria-busy="true"].notice-btn::before{animation:none;border-right-color:currentColor;opacity:.6}}

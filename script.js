@@ -50,6 +50,20 @@
     }
   });
 
+  // Click acknowledgment (standard policy): a button or CTA link that starts work or leaves the page shows a spinner right away.
+  // Form submit buttons set aria-busy themselves (js/contact.js, js/fit-review.js). Same-page anchors and modal openers act instantly and are skipped.
+  document.addEventListener("click", function (e) {
+    var a = e.target.closest && e.target.closest("a.btn, a.nav-cta, a.nav-login");
+    if (!a || e.defaultPrevented || e.metaKey || e.ctrlKey || e.shiftKey || e.button) return;
+    if (a.hasAttribute("data-fit-review-open") || a.target === "_blank") return;
+    var href = a.getAttribute("href") || "";
+    if (!href || href.charAt(0) === "#" || /^(mailto|tel):/i.test(href)) return;
+    a.setAttribute("aria-busy", "true");
+  });
+  window.addEventListener("pageshow", function () {
+    Array.prototype.forEach.call(document.querySelectorAll("a[aria-busy]"), function (a) { a.removeAttribute("aria-busy"); });
+  });
+
   var year = document.getElementById("year");
   if (year) year.textContent = String(new Date().getFullYear());
 })();
