@@ -61,3 +61,8 @@ The Worker returns the unmodified asset whenever `loadTicker()` is null; that pa
 
 ## 6. Scroll duration
 Rendered list width 6,926 px. At the ~48 px/s target that is 144 s, so the 90 s cap applies: one full pass is **90 s (about 77 px/s)**. The brief's 60-90 s window and 40-55 px/s speed cannot both hold with 15 long titles; I kept the 90 s limit. Shortening the list (e.g. 10 items) or a longer cap would bring it into the speed range. Decision for the partner.
+
+## Deploy note: edge propagation delay (Nov 9, 2026)
+After `wrangler deploy` (version 1eef3a8b), tejascooperative.com kept serving the old homepage (`cf-cache-status: HIT`, `/js/ticker.js` 404) for several minutes, including after a manual cache purge, then began serving the ticker with no further change. Likely cause: edge caching or propagation lag; not confirmed (the zone's cache rules were not readable with the available Cloudflare login, which has no cache-purge or rulesets scope). If a future deploy looks stale, wait several minutes and re-check before debugging; verify with `curl -s https://tejascooperative.com/ | grep -c ticker-band`.
+
+Also: `wrangler deploy` fails with "No access to the specified service" when run under direnv (the Tejas env overrides the Cloudflare login). Run it from the site repo without direnv.
