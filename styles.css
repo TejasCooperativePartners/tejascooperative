@@ -633,3 +633,11 @@ a{color:var(--cp-navy-3)}
   content:"";width:1em;height:1em;flex:none;border:2px solid currentColor;border-right-color:transparent;border-radius:50%;animation:btn-spin .7s linear infinite}
 @keyframes btn-spin{to{transform:rotate(360deg)}}
 @media (prefers-reduced-motion:reduce){[aria-busy="true"].btn::before,[aria-busy="true"].nav-cta::before,[aria-busy="true"].nav-login::before,[aria-busy="true"].fr-btn::before,[aria-busy="true"].notice-btn::before{animation:none;border-right-color:currentColor;opacity:.6}}
+
+/* Social rail: fixed, vertically centered on the left edge of every page */
+.social-rail{position:fixed;left:0;top:50%;transform:translateY(-50%);z-index:90;display:flex;flex-direction:column;background:#0A2638;border:1px solid rgba(217,164,65,.5);border-left:0;border-radius:0 .5rem .5rem 0;box-shadow:0 4px 14px rgba(0,0,0,.25);padding-left:env(safe-area-inset-left)}
+.social-rail a{display:flex;align-items:center;justify-content:center;width:44px;height:44px;color:#f3ead9;transition:color .15s,background .15s}
+.social-rail a+a{border-top:1px solid rgba(243,234,217,.15)}
+.social-rail a:hover,.social-rail a:focus-visible{color:var(--gold);background:rgba(255,255,255,.06)}
+.social-rail a:focus-visible{outline:2px solid var(--gold);outline-offset:-2px}
+@media print{.social-rail{display:none}}
