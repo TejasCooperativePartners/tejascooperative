@@ -14,6 +14,7 @@ import {
 } from "./config.js";
 import { HEADER_HTML, FOOTER_HTML } from "./chrome.js";
 import { CONTACT_PAGE, PRIVACY_PAGE, TERMS_PAGE } from "./pages.js";
+import { BETA_META, BETA_SCRIPT, betaBody, betaState } from "./beta.js";
 import adminHtml from "./templates/blog-admin.html";
 import adminLoginHtml from "./templates/blog-admin-login.html";
 
@@ -24,6 +25,7 @@ const POST_FIELDS = [
 ];
 const STATIC_PAGES = [
   { loc: "/", changefreq: "monthly", priority: "1.0" },
+  { loc: "/beta", changefreq: "weekly", priority: "0.7" },
   { loc: "/contact", changefreq: "yearly", priority: "0.6" },
   { loc: "/privacy", changefreq: "yearly", priority: "0.3" },
   { loc: "/terms", changefreq: "yearly", priority: "0.3" },
@@ -37,6 +39,7 @@ export default {
     const path = url.pathname;
 
     if (path === "/blog/admin" || path.startsWith("/blog/admin/")) return handleAdmin(request, env, url);
+    if (path === "/beta" || path === "/beta/") return renderBeta(url);
     if (path === "/sitemap.xml") return renderSitemap();
     if (path === "/blog" || path === "/blog/") return renderBlogIndex();
     const info = INFO_PAGES[path.replace(/\/$/, "")];
@@ -55,6 +58,16 @@ const INFO_PAGES = {
   "/privacy": PRIVACY_PAGE,
   "/terms": TERMS_PAGE,
 };
+
+async function renderBeta(url) {
+  const open = await betaState();
+  return htmlResponse(
+    page({
+      title: `${BETA_META.title} | ${SITE_NAME}`, description: BETA_META.description, canonical: `${SITE_ORIGIN}/beta`,
+      body: betaBody(url, open), scripts: BETA_SCRIPT,
+    }),
+  );
+}
 
 function renderInfoPage(p) {
   return htmlResponse(
