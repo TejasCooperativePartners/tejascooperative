@@ -15,6 +15,7 @@ import {
 import { HEADER_HTML, FOOTER_HTML } from "./chrome.js";
 import { CONTACT_PAGE, PRIVACY_PAGE, TERMS_PAGE } from "./pages.js";
 import { BETA_META, BETA_SCRIPT, betaBody, betaState } from "./beta.js";
+import { loadTicker } from "./ticker.js";
 import adminHtml from "./templates/blog-admin.html";
 import adminLoginHtml from "./templates/blog-admin-login.html";
 
@@ -60,11 +61,11 @@ const INFO_PAGES = {
 };
 
 async function renderBeta(url) {
-  const open = await betaState();
+  const [open, ticker] = await Promise.all([betaState(), loadTicker()]);
   return htmlResponse(
     page({
       title: `${BETA_META.title} | ${SITE_NAME}`, description: BETA_META.description, canonical: `${SITE_ORIGIN}/beta`,
-      body: betaBody(url, open), scripts: BETA_SCRIPT,
+      body: betaBody(url, open, ticker || ""), scripts: BETA_SCRIPT,
     }),
   );
 }

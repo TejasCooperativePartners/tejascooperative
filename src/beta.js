@@ -25,7 +25,7 @@ export async function betaState() {
   }
 }
 
-export function betaBody(url, open) {
+export function betaBody(url, open, tickerHtml = "") {
   const raw = (url.searchParams.get("coop") || "").toLowerCase();
   const coop = raw === "tips" || raw === "buyboard" ? raw : "";
   const qs = new URLSearchParams();
@@ -44,9 +44,8 @@ export function betaBody(url, open) {
   const closedCoop = coop || (!open.tips ? "tips" : "buyboard");
   const ctaOpenCoop = coop || ""; // for the analytics parameter
   const cta = closedFor
-    ? `<h2>The ${LABEL[closedCoop]} beta seats are filled.</h2><p>The beta program for ${LABEL[closedCoop]} incumbents is closed. If a seat opens, we will reach out to vendors who asked.</p>`
-    : `<h2>Request a beta seat.</h2><p>The questionnaire takes a few minutes. Each commitment is stated plainly, and you agree to each one before you submit.</p><p><a class="btn btn-primary" href="${esc(href)}" data-beta-cta data-coop="${esc(ctaOpenCoop)}">Start the questionnaire</a></p>`;
-  const ctaBlock = (id) => `<section class="section beta-cta" ${id ? `id="${id}"` : ""}><div class="wrap beta-cta-box">${cta}</div></section>`;
+    ? `<div class="beta-closed" role="status"><strong>The ${LABEL[closedCoop]} beta seats are filled.</strong> The beta program for ${LABEL[closedCoop]} incumbents is closed. If a seat opens, we will reach out to vendors who asked.</div>`
+    : `<p class="beta-cta-row"><a class="btn btn-glow" href="${esc(href)}" data-beta-cta data-coop="${esc(ctaOpenCoop)}">Start the questionnaire</a></p>`;
 
   return `<section class="beta-hero">
   <div class="wrap">
@@ -55,6 +54,7 @@ export function betaBody(url, open) {
     <p class="lede">Tejas Cooperative Partners prepares and manages cooperative proposals for vendors. Our beta program runs a full renewal engagement for incumbent vendors at no fee.${seatLine ? " " + esc(seatLine) : ""}</p>
   </div>
 </section>
+${tickerHtml}
 <section class="section">
   <div class="wrap beta-prose">
     <h2>What we do on your renewal</h2>
@@ -65,12 +65,14 @@ export function betaBody(url, open) {
       <li>We bring the completed packet to you for review. You read the solicitation, review the packet, and approve it before we submit.</li>
       <li>You work through a client portal with your documents, questions, progress, and deadlines in one place.</li>
     </ul>
+    ${cta}
   </div>
 </section>
 <section class="section section-alt">
   <div class="wrap beta-prose">
     <h2>Why this is free</h2>
     <p>Tejas is opening its platform and process to a first group of vendors in beta. In exchange for a waived fee, beta vendors give us direct feedback while they run a real renewal through the system. The fee we waive is the published Incumbent Re-Award fee of $12,500.</p>
+    ${closedFor ? "" : cta}
     <h2>What beta vendors receive</h2>
     <ul class="beta-list">
       <li>The beta renewal engagement at $0. No kickoff amount and no attainment amount for that engagement.</li>
@@ -89,16 +91,15 @@ export function betaBody(url, open) {
       <li>If the engagement results in an award, permission to publish a case study of the experience, with your review of the text before it runs.</li>
       <li>Availability for occasional reference calls with prospective clients, scheduled through Tejas and capped.</li>
     </ul>
+    ${closedFor ? "" : cta}
   </div>
 </section>
-${ctaBlock("request")}
 <section class="section">
   <div class="wrap beta-prose">
     <h2>Who this fits</h2>
     <p>Current BuyBoard or TIPS contract holders in Texas, with a successor window open or approaching, who can meet the response pace above. Seats are limited to 10 per cooperative. A completed questionnaire is a seat request. Tejas reviews each request and confirms seats in writing.</p>
   </div>
 </section>
-${ctaBlock("")}
 <section class="section section-alt">
   <div class="wrap beta-prose">
     <p class="beta-fine">Questions before you apply, reply to the email that brought you here or use the <a href="/contact">contact form</a>. Tejas Cooperative Partners is an independent firm, not a cooperative, and is not affiliated with BuyBoard, TASB, or TIPS. Tejas guarantees no award and no sales level.</p>
@@ -106,7 +107,7 @@ ${ctaBlock("")}
 </section>`;
 }
 
-export const BETA_SCRIPT = `<script>
+export const BETA_SCRIPT = `<script src="/js/beta-modal.js" defer></script>\n<script>
 document.addEventListener('click', function (e) {
   var a = e.target.closest && e.target.closest('[data-beta-cta]');
   if (!a || typeof gtag !== 'function') return;
